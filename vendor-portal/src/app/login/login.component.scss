@@ -1,0 +1,889 @@
+.login-wrapper {
+  display: flex;
+  height: 100vh;
+  background-color: #fceed1;
+}
+
+.left-image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fceed1;
+
+  img {
+    width: 100%;
+    max-width: 800px;
+    padding: 1px;
+    border-radius: 10px;
+  }
+}
+
+.right-content {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fceed1;
+  padding: 2rem;
+}
+
+.branding {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2.5rem;
+    color: #a020f0;
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: #f4436b;
+  }
+}
+
+.login-card {
+  background-color: #fde9b5;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #800080;
+    }
+
+    input {
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+
+    button {
+      background-color: #ff1e56;
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #d8003c;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .login-wrapper {
+//   display: flex;
+//   height: 100vh;
+//   background-color: #fceed1;
+// }
+
+// .left-image {
+//   width: 50%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: #fceed1;
+
+//   img {
+//     width: 80%;
+//     max-width: 600px;
+//   }
+// }
+
+// .right-content {
+//   width: 50%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   background: #ffffff;
+//   padding: 2rem;
+// }
+
+// .branding {
+//   text-align: center;
+//   margin-bottom: 2rem;
+
+//   h1 {
+//     font-size: 2.5rem;
+//     color: #a020f0;
+//     margin-bottom: 0.5rem;
+//   }
+
+//   h3 {
+//     font-size: 1.2rem;
+//     color: #f4436b;
+//   }
+// }
+
+// .login-card {
+//   background-color: #fde9b5;
+//   padding: 2rem;
+//   border-radius: 1.5rem;
+//   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+//   width: 100%;
+//   max-width: 400px;
+//   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+//   &:hover {
+//     transform: translateY(-5px);
+//     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+//   }
+
+//   form {
+//     display: flex;
+//     flex-direction: column;
+
+//     label {
+//       font-weight: bold;
+//       margin-bottom: 0.5rem;
+//       color: #800080;
+//     }
+
+//     input {
+//       padding: 0.75rem;
+//       margin-bottom: 1rem;
+//       border: 1px solid #ccc;
+//       border-radius: 0.5rem;
+//     }
+
+//     button {
+//       background-color: #ff1e56;
+//       color: white;
+//       padding: 0.75rem;
+//       border: none;
+//       border-radius: 0.5rem;
+//       font-weight: bold;
+//       font-size: 1rem;
+//       cursor: pointer;
+//       transition: background-color 0.3s ease;
+
+//       &:hover {
+//         background-color: #d8003c;
+//       }
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .login-container {
+//   height: 100vh;
+//   width: 100vw;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .background-content {
+//   display: flex;
+//   background-color: white;
+//   border-radius: 1rem;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
+//   max-width: 1200px;
+//   width: 90%;
+//   height: 80%;
+// }
+
+// .image-section {
+//   flex: 1;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .main-image {
+//   max-width: 100%;
+//   max-height: 100%;
+//   object-fit: contain;
+//   border-radius: 0.5rem;
+// }
+
+// .login-content-wrapper {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column; /* This is key for stacking elements */
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: white;
+//   gap: 2rem; /* Adds space between the header and the card */
+// }
+
+// .text-header {
+//   text-align: center;
+//   width: 100%;
+//   max-width: 400px;
+// }
+
+// .portal-name {
+//   font-size: 2.5rem;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .tagline {
+//   font-size: 1.2rem;
+//   color: #f75990; // Sister Sister
+//   margin-top: 0;
+// }
+
+// .divider {
+//   width: 50px;
+//   height: 4px;
+//   background-color: #f2d53c; // Yellow Gloves
+//   margin: 1rem auto;
+//   border-radius: 2px;
+// }
+
+// .intro-text {
+//   font-size: 1rem;
+//   color: #555;
+//   margin-top: 1rem;
+//   text-align: center;
+// }
+
+// .login-card {
+//   width: 100%;
+//   max-width: 400px;
+//   background-color: #fceed1;
+//   padding: 2rem;
+//   border-radius: 1rem;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+//   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  
+//   &:hover {
+//     transform: scale(1.02);
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+//   }
+// }
+
+// .input-group {
+//   margin-bottom: 1.5rem;
+// }
+
+// .input-group label {
+//   display: block;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .input-group input {
+//   width: 100%;
+//   padding: 0.75rem;
+//   border: 1px solid #ccc;
+//   border-radius: 0.5rem;
+//   font-size: 1rem;
+//   transition: border-color 0.3s;
+  
+//   &:focus {
+//     outline: none;
+//     border-color: #f2d53c; // Yellow Gloves
+//   }
+// }
+
+// .login-button {
+//   width: 100%;
+//   padding: 0.75rem;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   color: white;
+//   background-color: #ff1d58; // Yass Queen
+//   border: none;
+//   border-radius: 0.5rem;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease, transform 0.2s ease;
+  
+//   &:hover {
+//     background-color: #f75990; // Sister Sister
+//     transform: translateY(-2px);
+//   }
+  
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// .error-message {
+//   color: #c80e13; // Redhead
+//   margin-top: 1rem;
+//   text-align: center;
+// }
+
+// @media (max-width: 768px) {
+//   .background-content {
+//     flex-direction: column;
+//     height: auto;
+//     width: 95%;
+//   }
+
+//   .image-section {
+//     display: none;
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .login-container {
+//   height: 100vh;
+//   width: 100vw;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .background-content {
+//   display: flex;
+//   background-color: white;
+//   border-radius: 1rem;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
+//   max-width: 1200px;
+//   width: 90%;
+//   height: 80%;
+// }
+
+// .image-section {
+//   flex: 1;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .main-image {
+//   max-width: 100%;
+//   max-height: 100%;
+//   object-fit: contain;
+//   border-radius: 0.5rem;
+// }
+
+// .login-content-wrapper {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: white;
+// }
+
+// .text-header {
+//   text-align: center;
+//   margin-bottom: 2rem;
+//   width: 100%;
+//   max-width: 400px;
+// }
+
+// .portal-name {
+//   font-size: 2.5rem;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .tagline {
+//   font-size: 1.2rem;
+//   color: #f75990; // Sister Sister
+//   margin-top: 0;
+// }
+
+// .divider {
+//   width: 50px;
+//   height: 4px;
+//   background-color: #f2d53c; // Yellow Gloves
+//   margin: 1rem auto;
+//   border-radius: 2px;
+// }
+
+// .intro-text {
+//   font-size: 1rem;
+//   color: #555;
+//   margin-top: 1rem;
+//   text-align: center;
+// }
+
+// .login-card {
+//   width: 100%;
+//   max-width: 400px;
+//   background-color: #fceed1;
+//   padding: 2rem;
+//   border-radius: 1rem;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+//   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  
+//   &:hover {
+//     transform: scale(1.02);
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+//   }
+// }
+
+// .input-group {
+//   margin-bottom: 1.5rem;
+// }
+
+// .input-group label {
+//   display: block;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .input-group input {
+//   width: 100%;
+//   padding: 0.75rem;
+//   border: 1px solid #ccc;
+//   border-radius: 0.5rem;
+//   font-size: 1rem;
+//   transition: border-color 0.3s;
+  
+//   &:focus {
+//     outline: none;
+//     border-color: #f2d53c; // Yellow Gloves
+//   }
+// }
+
+// .login-button {
+//   width: 100%;
+//   padding: 0.75rem;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   color: white;
+//   background-color: #ff1d58; // Yass Queen
+//   border: none;
+//   border-radius: 0.5rem;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease, transform 0.2s ease;
+  
+//   &:hover {
+//     background-color: #f75990; // Sister Sister
+//     transform: translateY(-2px);
+//   }
+  
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// .error-message {
+//   color: #c80e13; // Redhead
+//   margin-top: 1rem;
+//   text-align: center;
+// }
+
+// @media (max-width: 768px) {
+//   .background-content {
+//     flex-direction: column;
+//     height: auto;
+//     width: 95%;
+//   }
+
+//   .image-section {
+//     display: none;
+//   }
+// }
+
+
+
+
+
+
+
+
+
+// .login-container {
+//   height: 100vh;
+//   width: 100vw;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .background-content {
+//   display: flex;
+//   background-color: white;
+//   border-radius: 1rem;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
+//   max-width: 1200px;
+//   width: 90%;
+//   height: 80%;
+// }
+
+// .image-section {
+//   flex: 1;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .main-image {
+//   max-width: 100%;
+//   max-height: 100%;
+//   object-fit: contain;
+//   border-radius: 0.5rem;
+// }
+
+// .right-content {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: white;
+// }
+
+// .text-header {
+//   text-align: center;
+//   margin-bottom: 2rem;
+// }
+
+// .portal-name {
+//   font-size: 2.5rem;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .tagline {
+//   font-size: 1.2rem;
+//   color: #f75990; // Sister Sister
+//   margin-top: 0;
+// }
+
+// .divider {
+//   width: 50px;
+//   height: 4px;
+//   background-color: #f2d53c; // Yellow Gloves
+//   margin: 1rem auto;
+//   border-radius: 2px;
+// }
+
+// .intro-text {
+//   font-size: 1rem;
+//   color: #555;
+//   margin: 1rem auto;
+//   max-width: 400px;
+// }
+
+// .login-card {
+//   width: 100%;
+//   max-width: 400px;
+//   background-color: #fceed1;
+//   padding: 2rem;
+//   border-radius: 1rem;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+//   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  
+//   &:hover {
+//     transform: scale(1.02);
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+//   }
+// }
+
+// .card-content {
+//   width: 100%;
+// }
+
+// .input-group {
+//   margin-bottom: 1.5rem;
+// }
+
+// .input-group label {
+//   display: block;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .input-group input {
+//   width: 100%;
+//   padding: 0.75rem;
+//   border: 1px solid #ccc;
+//   border-radius: 0.5rem;
+//   font-size: 1rem;
+//   transition: border-color 0.3s;
+  
+//   &:focus {
+//     outline: none;
+//     border-color: #f2d53c; // Yellow Gloves
+//   }
+// }
+
+// .login-button {
+//   width: 100%;
+//   padding: 0.75rem;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   color: white;
+//   background-color: #ff1d58; // Yass Queen
+//   border: none;
+//   border-radius: 0.5rem;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease, transform 0.2s ease;
+  
+//   &:hover {
+//     background-color: #f75990; // Sister Sister
+//     transform: translateY(-2px);
+//   }
+  
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// .error-message {
+//   color: #c80e13; // Redhead
+//   margin-top: 1rem;
+//   text-align: center;
+// }
+
+// @media (max-width: 768px) {
+//   .background-content {
+//     flex-direction: column;
+//     height: auto;
+//     width: 95%;
+//   }
+
+//   .image-section {
+//     display: none;
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .login-container {
+//   height: 100vh;
+//   width: 100vw;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .background-content {
+//   display: flex;
+//   background-color: white;
+//   border-radius: 1rem;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
+//   max-width: 1200px;
+//   width: 90%;
+//   height: 80%;
+// }
+
+// .image-section {
+//   flex: 1;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: #fceed1; // Background Tan
+// }
+
+// .main-image {
+//   max-width: 100%;
+//   max-height: 100%;
+//   object-fit: contain;
+//   border-radius: 0.5rem;
+// }
+
+// .login-card {
+//   flex: 1;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: white;
+//   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+//   cursor: pointer;
+  
+//   &:hover {
+//     transform: scale(1.02);
+//     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+//   }
+// }
+
+// .card-content {
+//   width: 100%;
+//   max-width: 400px;
+//   text-align: center;
+// }
+
+// .portal-name {
+//   font-size: 2.5rem;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .tagline {
+//   font-size: 1.2rem;
+//   color: #f75990; // Sister Sister
+//   margin-top: 0;
+// }
+
+// .divider {
+//   width: 50px;
+//   height: 4px;
+//   background-color: #f2d53c; // Yellow Gloves
+//   margin: 1rem auto;
+//   border-radius: 2px;
+// }
+
+// .intro-text {
+//   font-size: 1rem;
+//   color: #555;
+//   margin-bottom: 2rem;
+//   text-align: left;
+// }
+
+// .input-group {
+//   margin-bottom: 1.5rem;
+//   text-align: left;
+// }
+
+// .input-group label {
+//   display: block;
+//   font-weight: bold;
+//   color: #7d3cff; // Purple-y
+//   margin-bottom: 0.5rem;
+// }
+
+// .input-group input {
+//   width: 100%;
+//   padding: 0.75rem;
+//   border: 1px solid #ccc;
+//   border-radius: 0.5rem;
+//   font-size: 1rem;
+//   transition: border-color 0.3s;
+  
+//   &:focus {
+//     outline: none;
+//     border-color: #f2d53c; // Yellow Gloves
+//   }
+// }
+
+// .login-button {
+//   width: 100%;
+//   padding: 0.75rem;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   color: white;
+//   background-color: #ff1d58; // Yass Queen
+//   border: none;
+//   border-radius: 0.5rem;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease, transform 0.2s ease;
+  
+//   &:hover {
+//     background-color: #f75990; // Sister Sister
+//     transform: translateY(-2px);
+//   }
+  
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// .error-message {
+//   color: #c80e13; // Redhead
+//   margin-top: 1rem;
+// }
+
+// @media (max-width: 768px) {
+//   .background-content {
+//     flex-direction: column;
+//     height: auto;
+//     width: 95%;
+//   }
+
+//   .image-section {
+//     display: none;
+//   }
+// }

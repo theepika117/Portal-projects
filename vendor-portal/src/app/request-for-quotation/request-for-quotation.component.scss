@@ -1,0 +1,489 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.rfq-container {
+  padding: 0;
+  background-color: #fceed1;
+  min-height: 100%;
+}
+
+// Loading State
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ff1d58;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Error State
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  
+  .error-message {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    
+    .error-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    p {
+      color: #c80e13;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0 0 25px 0;
+      line-height: 1.5;
+    }
+    
+    .retry-btn {
+      background: #ff1d58;
+      color: #fceed1;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #e01850;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+// RFQ Content
+.rfq-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+// RFQ Header
+.rfq-header {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  .rfq-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    h1 {
+      color: #c80e13;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0;
+    }
+    
+    .refresh-btn {
+      background: #ff1d58;
+      color: #fceed1;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #e01850;
+        transform: translateY(-1px);
+      }
+      
+      .refresh-icon {
+        font-size: 16px;
+      }
+    }
+  }
+  
+  .rfq-description {
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+}
+
+// RFQ Table
+.rfq-table-container {
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.rfq-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  thead {
+    background: linear-gradient(135deg, #c80e13, #ff1d58);
+    
+    th {
+      color: #fceed1;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 20px 15px;
+      text-align: left;
+      border: none;
+      
+      .header-icon {
+        margin-right: 8px;
+        font-size: 16px;
+      }
+    }
+  }
+  
+  tbody {
+    .rfq-row {
+      transition: all 0.3s ease;
+      border-bottom: 1px solid #f0f0f0;
+      
+      &:hover {
+        background-color: #f8f9fa;
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      td {
+        padding: 18px 15px;
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+        
+        &.doc-number {
+          font-weight: 600;
+          color: #c80e13;
+        }
+        
+        &.net-price {
+          font-weight: 600;
+          color: #2d7d32;
+        }
+      }
+    }
+  }
+}
+
+.view-btn {
+  background: #ff1d58;
+  color: #fceed1;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #e01850;
+    transform: translateY(-1px);
+  }
+  
+  .view-icon {
+    font-size: 14px;
+  }
+}
+
+// Empty State
+.empty-state {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 30px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  .empty-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+  }
+  
+  p {
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+// Popup Modal
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.popup-modal {
+  background: #f75990;
+  border-radius: 16px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: popupSlideIn 0.3s ease-out;
+}
+
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  
+  h2 {
+    color: #fceed1;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    .popup-icon {
+      font-size: 26px;
+    }
+  }
+  
+  .close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fceed1;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+  }
+}
+
+.popup-content {
+  padding: 30px;
+}
+
+.detail-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.detail-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 25px;
+  
+  h3 {
+    color: #c80e13;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  
+  label {
+    color: #666;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  span {
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .rfq-content {
+    padding: 15px;
+  }
+  
+  .rfq-header {
+    padding: 20px;
+    
+    .rfq-title {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      
+      h1 {
+        font-size: 24px;
+      }
+    }
+  }
+  
+  .rfq-table {
+    font-size: 13px;
+    
+    thead th {
+      padding: 15px 10px;
+      font-size: 13px;
+    }
+    
+    tbody td {
+      padding: 15px 10px;
+      font-size: 13px;
+    }
+  }
+  
+  .popup-modal {
+    margin: 10px;
+    max-height: 95vh;
+  }
+  
+  .popup-header {
+    padding: 20px;
+    
+    h2 {
+      font-size: 20px;
+    }
+  }
+  
+  .popup-content {
+    padding: 20px;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rfq-content {
+    padding: 10px;
+  }
+  
+  .rfq-table-container {
+    overflow-x: auto;
+  }
+  
+  .rfq-table {
+    min-width: 600px;
+  }
+  
+  .popup-overlay {
+    padding: 10px;
+  }
+  
+  .popup-header {
+    padding: 15px;
+  }
+  
+  .popup-content {
+    padding: 15px;
+  }
+}

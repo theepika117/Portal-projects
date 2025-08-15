@@ -1,0 +1,192 @@
+<div class="rfq-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Fetching RFQ data from SAP...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <div class="error-message">
+      <span class="error-icon">⚠️</span>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="refreshRFQ()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- RFQ Content -->
+  <div *ngIf="!isLoading && !errorMessage" class="rfq-content">
+    <!-- Header Section -->
+    <div class="rfq-header">
+      <div class="rfq-title">
+        <h1>Request for Quotation</h1>
+        <button class="refresh-btn" (click)="refreshRFQ()">
+          <span class="refresh-icon">🔄</span>
+          Refresh
+        </button>
+      </div>
+      <div class="rfq-description">
+        <p>Get invited to quote with real-time RFQs pulled directly from SAP. View product details, quantities, delivery dates, and submit your best offer before the deadline.</p>
+      </div>
+    </div>
+
+    <!-- RFQ Table -->
+    <div class="rfq-table-container">
+      <table class="rfq-table">
+        <thead>
+          <tr>
+            <th>
+              <span class="header-icon">📄</span>
+              Document Number
+            </th>
+            <th>
+              <span class="header-icon">📋</span>
+              Document Type
+            </th>
+            <th>
+              <span class="header-icon">📅</span>
+              Document Date
+            </th>
+            <th>
+              <span class="header-icon">💰</span>
+              Net Price
+            </th>
+            <th>
+              <span class="header-icon">💱</span>
+              Currency
+            </th>
+            <th>
+              <span class="header-icon">⚡</span>
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rfq of rfqList" class="rfq-row">
+            <td class="doc-number">{{ rfq.DOC_NUM }}</td>
+            <td>{{ rfq.DOC_TYPE }}</td>
+            <td>{{ rfq.DOC_DATE }}</td>
+            <td class="net-price">{{ rfq.NET_PRICE }}</td>
+            <td>{{ rfq.CURRENCY_KEY }}</td>
+            <td>
+              <button class="view-btn" (click)="viewRFQ(rfq)">
+                <span class="view-icon">👁️</span>
+                View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="rfqList.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>No RFQs Available</h3>
+      <p>There are currently no Request for Quotations available.</p>
+    </div>
+  </div>
+
+  <!-- Popup Modal -->
+  <div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-modal" (click)="$event.stopPropagation()">
+      <div class="popup-header">
+        <h2>
+          <span class="popup-icon">📋</span>
+          RFQ Details
+        </h2>
+        <button class="close-btn" (click)="closePopup()">
+          <span>✕</span>
+        </button>
+      </div>
+      
+      <div class="popup-content" *ngIf="selectedRFQ">
+        <div class="detail-sections">
+          <!-- Document Information -->
+          <div class="detail-section">
+            <h3>Document Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Document Number</label>
+                <span>{{ selectedRFQ.DOC_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Type</label>
+                <span>{{ selectedRFQ.DOC_TYPE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Date</label>
+                <span>{{ selectedRFQ.DOC_DATE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Creator</label>
+                <span>{{ selectedRFQ.CREATOR }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Organization Information -->
+          <div class="detail-section">
+            <h3>Organization Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Purchasing Organization</label>
+                <span>{{ selectedRFQ.PURCHASING_ORG }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Purchasing Group</label>
+                <span>{{ selectedRFQ.PUCHASING_GRP }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item Information -->
+          <div class="detail-section">
+            <h3>Item Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Item Number</label>
+                <span>{{ selectedRFQ.ITEM_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Material Number</label>
+                <span>{{ selectedRFQ.MATERIAL_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Short Text</label>
+                <span>{{ selectedRFQ.SHORT_TXT }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Purchase Order Quantity</label>
+                <span>{{ selectedRFQ.PURCHASE_ORDER_QNTY }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Unit of Measure</label>
+                <span>{{ selectedRFQ.UNIT_OF_MEASURE }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing & Delivery -->
+          <div class="detail-section">
+            <h3>Pricing & Delivery</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Net Price</label>
+                <span>{{ selectedRFQ.NET_PRICE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Currency</label>
+                <span>{{ selectedRFQ.CURRENCY_KEY }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Delivery Date</label>
+                <span>{{ selectedRFQ.DELIVERY_DATE || 'Not specified' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

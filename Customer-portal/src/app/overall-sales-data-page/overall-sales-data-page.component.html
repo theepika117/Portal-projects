@@ -1,0 +1,68 @@
+<!-- src/app/overall-sales-data-page/overall-sales-data-page.component.html -->
+<div class="overall-sales-container">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button (click)="goBack()" aria-label="Back to Financial Sheet">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Overall Sales Data</span>
+    <span class="spacer"></span>
+    <mat-icon>search</mat-icon>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="page-title">Your Overall Sales Data</h1>
+    <p class="page-subtitle">
+      A comprehensive overview of your sales transactions with the company.
+    </p>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Fetching your overall sales data...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="warn" (click)="goBack()">Go Back</button>
+    </div>
+
+    <!-- Overall Sales Data List -->
+    <div *ngIf="!isLoading && !errorMessage && overallSalesData.length > 0" class="overall-sales-list">
+      <mat-card *ngFor="let record of overallSalesData" class="overall-sales-card">
+        <div class="card-content-summary">
+          <div class="summary-item">
+            <mat-icon>assignment</mat-icon>
+            <span class="label">Sales Doc No:</span>
+            <span class="value">{{ record.DOC_NUM }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>money</mat-icon>
+            <span class="label">Net Value:</span>
+            <span class="value">{{ record.NET_VALUE }} {{ record.SD_DOC_CURRENCY }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>attach_money</mat-icon>
+            <span class="label">Net Price:</span>
+            <span class="value">{{ record.NET_PRICE }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>calculate</mat-icon>
+            <span class="label">Cost:</span>
+            <span class="value">{{ record.COST }}</span>
+          </div>
+        </div>
+        <button mat-raised-button color="accent" (click)="viewSalesDetails(record)" class="view-button">
+          <mat-icon>visibility</mat-icon> View Details
+        </button>
+      </mat-card>
+    </div>
+
+    <!-- No Data Message -->
+    <div *ngIf="!isLoading && !errorMessage && overallSalesData.length === 0" class="no-data-message">
+      <mat-icon class="no-data-icon">sentiment_dissatisfied</mat-icon>
+      <p>No overall sales data found for your account.</p>
+      <p>Please contact support if you believe this is an error.</p>
+    </div>
+  </div>
+</div>

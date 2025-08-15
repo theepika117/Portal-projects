@@ -1,0 +1,201 @@
+/* src/app/login/login.component.scss */
+
+@use "sass:color"; // <--- ADD THIS LINE to import the color module
+
+// Styling for the overall container of the login page
+.login-container {
+  display: flex;             // Use flexbox for centering
+  justify-content: center;   // Center horizontally
+  align-items: center;       // Center vertically
+  min-height: 100vh;         // Take up at least the full viewport height
+  // Changed background to a solid light blue color to match the home page
+  background-color: #e0f2f7; // This is a light blue/cyan, similar to your home page
+  font-family: 'Roboto', sans-serif; // Use a modern, clean font (comes with Material)
+  padding: 20px; // Add some padding for smaller screens
+  box-sizing: border-box; // Include padding in element's total width and height
+}
+
+// Styling for the login card itself
+.login-card {
+  width: 100%;             // Occupy full width within its container
+  max-width: 400px;        // Limit maximum width for better readability on large screens
+  padding: 30px;           // Inner spacing
+  border-radius: 15px;     // Rounded corners for a softer look
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); // Soft shadow for depth
+  // Smooth transitions for hover effects on transform, shadow, and background-color
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  background-color: white; // Default background color
+}
+
+// Styles applied when the card is hovered over
+.login-card-hover {
+  transform: translateY(-5px); // Slight lift effect
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); // More pronounced shadow
+  background-color: color.adjust(#d3f0ec, $lightness: 5%); // Slightly lighter background on hover
+}
+
+// Styling for the card header (title)
+mat-card-header {
+  margin-bottom: 25px; // Space below the header
+  text-align: center;  // Center the title text
+
+  mat-card-title {
+    font-size: 2em;      // Larger font size for the title
+    font-weight: 700;    // Bold font weight
+    color: #00796b;      // A Material primary color for the title
+  }
+}
+
+// Styling for the form content within the card
+mat-card-content {
+  form {
+    display: flex;           // Use flexbox for form elements
+    flex-direction: column;  // Stack elements vertically
+    gap: 20px;               // Space between form fields
+  }
+
+  // Ensure form fields take full width
+  mat-form-field {
+    width: 100%;
+  }
+
+  // Styling for the login button
+  button {
+    padding: 12px 0;       // Larger vertical padding for a more prominent button
+    font-size: 1.1em;      // Slightly larger font size
+    font-weight: 600;      // Semi-bold font weight
+    border-radius: 8px;    // Rounded corners for the button
+    // Smooth transitions for background-color and transform on hover
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+
+    // Styles applied when the button is hovered over
+    &.login-button-hover {
+      background-color: color.adjust(#00796b, $lightness: -10%); // Darker background on hover
+      transform: translateY(-2px);           // Slight lift effect
+    }
+
+    // Styles for disabled button state
+    &:disabled {
+      opacity: 0.6;          // Reduce opacity
+      cursor: not-allowed;   // Change cursor to indicate it's not clickable
+    }
+  }
+}
+
+// Responsive adjustments for smaller screens (e.g., mobile)
+@media (max-width: 600px) {
+  .login-card {
+    margin: 15px; // Add some margin to prevent card from touching screen edges
+    padding: 20px; // Reduce padding slightly
+  }
+
+  mat-card-header {
+    mat-card-title {
+      font-size: 1.7em; // Adjust title size for smaller screens
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// .login-container {
+//   display: flex;             // Use flexbox for centering
+//   justify-content: center;   // Center horizontally
+//   align-items: center;       // Center vertically
+//   min-height: 100vh;         // Take up at least the full viewport height
+//   // Attractive gradient background
+//   background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+//   font-family: 'Roboto', sans-serif; // Use a modern, clean font (comes with Material)
+//   padding: 20px; // Add some padding for smaller screens
+//   box-sizing: border-box; // Include padding in element's total width and height
+// }
+
+// // Styling for the login card itself
+// .login-card {
+//   width: 100%;             // Occupy full width within its container
+//   max-width: 400px;        // Limit maximum width for better readability on large screens
+//   padding: 30px;           // Inner spacing
+//   border-radius: 15px;     // Rounded corners for a softer look
+//   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); // Soft shadow for depth
+//   // Smooth transitions for hover effects on transform, shadow, and background-color
+//   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+//   background-color: white; // Default background color
+// }
+
+// // Styles applied when the card is hovered over
+// .login-card-hover {
+//   transform: translateY(-5px); // Slight lift effect
+//   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); // More pronounced shadow
+//   background-color: lighten(white, 5%); // Slightly lighter background on hover
+// }
+
+// // Styling for the card header (title)
+// mat-card-header {
+//   margin-bottom: 25px; // Space below the header
+//   text-align: center;  // Center the title text
+
+//   mat-card-title {
+//     font-size: 2em;      // Larger font size for the title
+//     font-weight: 700;    // Bold font weight
+//     color: #3f51b5;      // A Material primary color for the title
+//   }
+// }
+
+// // Styling for the form content within the card
+// mat-card-content {
+//   form {
+//     display: flex;           // Use flexbox for form elements
+//     flex-direction: column;  // Stack elements vertically
+//     gap: 20px;               // Space between form fields
+//   }
+
+//   // Ensure form fields take full width
+//   mat-form-field {
+//     width: 100%;
+//   }
+
+//   // Styling for the login button
+//   button {
+//     padding: 12px 0;       // Larger vertical padding for a more prominent button
+//     font-size: 1.1em;      // Slightly larger font size
+//     font-weight: 600;      // Semi-bold font weight
+//     border-radius: 8px;    // Rounded corners for the button
+//     // Smooth transitions for background-color and transform on hover
+//     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+
+//     // Styles applied when the button is hovered over
+//     &.login-button-hover {
+//       background-color: darken(#3f51b5, 10%); // Darker background on hover
+//       transform: translateY(-2px);           // Slight lift effect
+//     }
+
+//     // Styles for disabled button state
+//     &:disabled {
+//       opacity: 0.6;          // Reduce opacity
+//       cursor: not-allowed;   // Change cursor to indicate it's not clickable
+//     }
+//   }
+// }
+
+// // Responsive adjustments for smaller screens (e.g., mobile)
+// @media (max-width: 600px) {
+//   .login-card {
+//     margin: 15px; // Add some margin to prevent card from touching screen edges
+//     padding: 20px; // Reduce padding slightly
+//   }
+
+//   mat-card-header {
+//     mat-card-title {
+//       font-size: 1.7em; // Adjust title size for smaller screens
+//     }
+//   }
+// }

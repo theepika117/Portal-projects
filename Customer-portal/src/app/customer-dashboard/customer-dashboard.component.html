@@ -1,0 +1,88 @@
+<!-- src/app/customer-dashboard/customer-dashboard.component.html -->
+<div class="dashboard-container">
+  <!-- Optional: Toolbar for consistency, or remove if not needed here -->
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button (click)="goBackToHome()" aria-label="Back to Home">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Customer Dashboard</span>
+    <span class="spacer"></span>
+    <!-- You can add other icons/buttons here if needed -->
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="dashboard-title">Your Sales & Delivery Overview</h1>
+    <p class="dashboard-subtitle">Access your end-to-end transactions with the company.</p>
+
+    <div class="cards-grid">
+      <!-- Inquiry Data Card -->
+      <mat-card
+        class="dashboard-card"
+        (mouseover)="inquiryCardHover = true"
+        (mouseout)="inquiryCardHover = false"
+        [ngClass]="{'dashboard-card-hover': inquiryCardHover}"
+        (click)="navigateToInquiryData()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">question_answer</mat-icon> <!-- Icon for Inquiry -->
+          <mat-card-title>Inquiry Data</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Request for quotation or sales information without obligation.</p>
+          <p class="card-description">
+            View all your past inquiries and their current status, including any provided quotations.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Inquiry Data')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Sales Order Data Card -->
+      <mat-card
+        class="dashboard-card"
+        (mouseover)="salesOrderCardHover = true"
+        (mouseout)="salesOrderCardHover = false"
+        [ngClass]="{'dashboard-card-hover': salesOrderCardHover}"
+        (click)="navigateToSalesOrderData()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">shopping_cart</mat-icon> <!-- Icon for Sales Order -->
+          <mat-card-title>Sales Order Data</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Requests to deliver products or provide services at a certain time.</p>
+          <p class="card-description">
+            Track the status of your sales orders, from creation to fulfillment, and view order details.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Sales Order Data')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- List of Delivery Card -->
+      <mat-card
+        class="dashboard-card"
+        (mouseover)="deliveryCardHover = true"
+        (mouseout)="deliveryCardHover = false"
+        [ngClass]="{'dashboard-card-hover': deliveryCardHover}"
+        (click)="navigateToDeliveryList()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">local_shipping</mat-icon> <!-- Icon for Delivery -->
+          <mat-card-title>List of Delivery</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Central object in Shipping component with complete business transaction.</p>
+          <p class="card-description">
+            Monitor the status of your deliveries, view delivery documents, and track shipments.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('List of Delivery')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

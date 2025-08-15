@@ -1,0 +1,1724 @@
+/* src/app/inquiry-data/inquiry-data.component.scss */
+@use "sass:color";
+
+.inquiry-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #e0f2f7; /* Consistent light blue background */
+  font-family: 'Roboto', sans-serif;
+}
+
+.app-toolbar {
+  background-color: #00796b; /* Darker teal/green for toolbar */
+  color: white;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.page-title {
+  color: #00796b;
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.page-subtitle {
+  color: #333;
+  font-size: 1.2em;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.loading-spinner, .error-message, .no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 50px;
+  p {
+    color: #555;
+    font-size: 1.1em;
+  }
+}
+
+.error-message {
+  color: #d32f2f;
+  .error-icon {
+    font-size: 3em;
+    color: #d32f2f;
+  }
+  button {
+    background-color: #d32f2f;
+    color: white;
+    margin-top: 10px;
+  }
+}
+
+.no-data-message {
+  .no-data-icon {
+    font-size: 4em;
+    color: #9e9e9e;
+  }
+  p {
+    color: #777;
+  }
+  button {
+    margin-top: 10px;
+  }
+}
+
+.inquiry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.inquiry-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-content-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px 20px;
+    flex-grow: 1;
+    text-align: left; /* Ensure text alignment for the summary section */
+    margin-right: 20px;
+
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+
+      mat-icon {
+        font-size: 1.2em;
+        color: #3f51b5; /* Blue color for icons in cards */
+      }
+
+      .label {
+        font-weight: 600;
+        color: #555;
+        white-space: nowrap;
+      }
+
+      .value {
+        color: #333;
+        font-weight: 500;
+        word-wrap: break-word;
+      }
+    }
+  }
+
+  .view-button {
+    padding: 5px 10px; /* Further reduced padding */
+    font-size: 0.75em; /* Further reduced font size */
+    mat-icon {
+      font-size: 1.0em;
+      margin-right: 4px;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .inquiry-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+  .card-content-summary {
+    margin-right: 0;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .view-button {
+    width: 100%;
+  }
+  .page-title {
+    font-size: 2em;
+  }
+  .page-subtitle {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-toolbar {
+    padding: 0 10px;
+  }
+  .page-title {
+    font-size: 1.8em;
+  }
+  .inquiry-card {
+    padding: 10px;
+  }
+  .card-content-summary .summary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    .label {
+      margin-bottom: 2px;
+    }
+  }
+}
+
+
+/* MODAL STYLES */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  animation: fadeInScale 0.3s ease-out forwards;
+  position: relative; /* Needed for positioning the close icon button */
+}
+
+.modal-title {
+  color: #00796b;
+  font-size: 1.8em;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left; /* Ensure title is left-aligned */
+}
+
+.modal-close-icon-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #555;
+  &:hover {
+    color: #333;
+  }
+}
+
+.modal-details {
+  margin-bottom: 20px;
+  .detail-row {
+    display: flex;
+    justify-content: space-between; /* Aligns label to left, value to right */
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: #444;
+    text-align: left; /* Default text alignment for the row */
+
+    .label {
+      font-weight: 600;
+      color: #3f51b5; /* Blue color for modal labels */
+      flex-shrink: 0;
+      margin-right: 15px; /* Space between label and value */
+      // text-align: left; /* Ensure label is left-aligned */
+      min-width: 120px; /* Provide a min-width for labels for better alignment */
+    }
+    .value {
+      text-align: right; /* Aligns value to the right */
+      flex-grow: 1; /* Allows value to take remaining space */
+      word-wrap: break-word;
+    }
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    background-color: #e0e0e0;
+    color: #333;
+    &:hover {
+      background-color: #d0d0d0;
+    }
+  }
+}
+
+/* Animation for modal */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* Responsive adjustments for modal */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 20px;
+  }
+  .modal-title {
+    font-size: 1.5em;
+  }
+  .modal-details .detail-row {
+    flex-direction: column; /* Stack label and value vertically */
+    align-items: flex-start; /* Align stacked items to the left */
+    .label {
+      margin-bottom: 3px;
+      margin-right: 0;
+      min-width: unset; /* Remove min-width when stacked */
+    }
+    .value {
+      text-align: left; /* Align value to left when stacked */
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// /* src/app/inquiry-data/inquiry-data.component.scss */
+// @use "sass:color";
+
+// .inquiry-container {
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 100vh;
+//   background-color: #e0f2f7; /* Consistent light blue background */
+//   font-family: 'Roboto', sans-serif;
+// }
+
+// .app-toolbar {
+//   background-color: #00796b; /* Darker teal/green for toolbar */
+//   color: white;
+//   padding: 0 20px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   display: flex;
+//   align-items: center;
+// }
+
+// .spacer {
+//   flex: 1 1 auto;
+// }
+
+// .main-content {
+//   flex-grow: 1;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding: 30px;
+//   text-align: center;
+// }
+
+// .page-title {
+//   color: #00796b;
+//   font-size: 2.5em;
+//   margin-bottom: 15px;
+//   margin-top: 20px;
+// }
+
+// .page-subtitle {
+//   color: #333;
+//   font-size: 1.2em;
+//   max-width: 800px;
+//   margin-bottom: 40px;
+// }
+
+// .loading-spinner, .error-message, .no-data-message {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 15px;
+//   margin-top: 50px;
+//   p {
+//     color: #555;
+//     font-size: 1.1em;
+//   }
+// }
+
+// .error-message {
+//   color: #d32f2f;
+//   .error-icon {
+//     font-size: 3em;
+//     color: #d32f2f;
+//   }
+//   button {
+//     background-color: #d32f2f;
+//     color: white;
+//     margin-top: 10px;
+//   }
+// }
+
+// .no-data-message {
+//   .no-data-icon {
+//     font-size: 4em;
+//     color: #9e9e9e;
+//   }
+//   p {
+//     color: #777;
+//   }
+//   button {
+//     margin-top: 10px;
+//   }
+// }
+
+// .inquiry-list {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   width: 100%;
+//   max-width: 800px;
+// }
+
+// .inquiry-card {
+//   display: flex; /* Changed to flex for better control over content and button layout */
+//   justify-content: space-between; /* Space out content and button */
+//   align-items: center; /* Vertically align items */
+//   padding: 20px 25px;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+//   background-color: white;
+//   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+//   &:hover {
+//     transform: translateY(-3px);
+//     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+//   }
+
+//   .card-content-summary {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted minmax for better layout */
+//     gap: 10px 20px;
+//     flex-grow: 1; /* Allow content to take available space */
+//     text-align: left; /* Align text within summary items */
+//     margin-right: 20px; /* Space before the button */
+
+//     .summary-item {
+//       display: flex;
+//       align-items: center;
+//       gap: 8px; /* Space between icon, label, and value */
+//       flex-wrap: wrap; /* Allow items to wrap if space is tight */
+//       text-align: left; /* Ensure text alignment for the item */
+
+//       mat-icon {
+//         font-size: 1.2em;
+//         color: #3f51b5; /* Blue color for icons */
+//       }
+
+//       .label {
+//         font-weight: 600;
+//         color: #555;
+//         white-space: nowrap; /* Prevent label from wrapping */
+//       }
+
+//       .value {
+//         color: #333;
+//         font-weight: 500;
+//         word-wrap: break-word;
+//       }
+//     }
+//   }
+
+//   .view-button {
+//     padding: 6px 12px; /* Reduced padding to make button smaller */
+//     font-size: 0.8em; /* Reduced font size */
+//     mat-icon {
+//       font-size: 1.0em; /* Reduced icon size within button */
+//       margin-right: 4px; /* Adjusted margin */
+//     }
+//   }
+// }
+
+// /* Responsive adjustments */
+// @media (max-width: 768px) {
+//   .inquiry-card {
+//     flex-direction: column; /* Stack content and button vertically */
+//     align-items: flex-start; /* Align stacked content to start */
+//     padding: 15px;
+//   }
+//   .card-content-summary {
+//     margin-right: 0;
+//     margin-bottom: 15px; /* Space between summary and button */
+//     width: 100%; /* Take full width when stacked */
+//   }
+//   .view-button {
+//     width: 100%; /* Make button full width when stacked */
+//   }
+//   .page-title {
+//     font-size: 2em;
+//   }
+//   .page-subtitle {
+//     font-size: 1.1em;
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .app-toolbar {
+//     padding: 0 10px;
+//   }
+//   .page-title {
+//     font-size: 1.8em;
+//   }
+//   .inquiry-card {
+//     padding: 10px;
+//   }
+//   .card-content-summary .summary-item {
+//     flex-direction: column; /* Stack label and value within item */
+//     align-items: flex-start;
+//     .label {
+//       margin-bottom: 2px;
+//     }
+//   }
+// }
+
+
+// /* MODAL STYLES */
+// .modal-overlay {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.7);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 1000; /* Ensure it's on top of other content */
+// }
+
+// .modal-content {
+//   background-color: white;
+//   padding: 30px;
+//   border-radius: 10px;
+//   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+//   max-width: 500px;
+//   width: 90%; /* Responsive width */
+//   animation: fadeInScale 0.3s ease-out forwards; /* Simple animation */
+//   position: relative; /* Needed for positioning the close icon button */
+// }
+
+// .modal-title {
+//   color: #00796b;
+//   font-size: 1.8em;
+//   font-weight: 600;
+//   margin-bottom: 20px;
+//   padding-bottom: 10px;
+//   border-bottom: 1px solid #eee;
+//   text-align: left; /* Ensure title is left-aligned */
+// }
+
+// .modal-close-icon-button {
+//   position: absolute;
+//   top: 10px;
+//   right: 10px;
+//   color: #555; /* Color for the 'X' icon */
+//   &:hover {
+//     color: #333;
+//   }
+// }
+
+// .modal-details {
+//   margin-bottom: 20px;
+//   .detail-row {
+//     display: flex;
+//     justify-content: space-between;
+//     margin-bottom: 8px;
+//     font-size: 1em;
+//     color: #444;
+//     text-align: left; /* Ensure text alignment for rows */
+//     .label {
+//       font-weight: 600;
+//       color: #333;
+//       flex-shrink: 0;
+//       margin-right: 10px;
+//     }
+//     .value {
+//       text-align: right;
+//       flex-grow: 1;
+//       word-wrap: break-word;
+//     }
+//   }
+// }
+
+// .modal-actions {
+//   display: flex;
+//   justify-content: flex-end;
+//   button {
+//     background-color: #e0e0e0;
+//     color: #333;
+//     &:hover {
+//       background-color: #d0d0d0;
+//     }
+//   }
+// }
+
+// /* Animation for modal */
+// @keyframes fadeInScale {
+//   from {
+//     opacity: 0;
+//     transform: scale(0.9);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+// }
+
+
+// /* Responsive adjustments for modal */
+// @media (max-width: 600px) {
+//   .modal-content {
+//     padding: 20px;
+//   }
+//   .modal-title {
+//     font-size: 1.5em;
+//   }
+//   .modal-details .detail-row {
+//     flex-direction: column;
+//     align-items: flex-start;
+//     .label {
+//       margin-bottom: 3px;
+//       margin-right: 0;
+//     }
+//     .value {
+//       text-align: left;
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// /* src/app/inquiry-data/inquiry-data.component.scss */
+// @use "sass:color";
+
+// .inquiry-container {
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 100vh;
+//   background-color: #e0f2f7; /* Consistent light blue background */
+//   font-family: 'Roboto', sans-serif;
+// }
+
+// .app-toolbar {
+//   background-color: #00796b; /* Darker teal/green for toolbar */
+//   color: white;
+//   padding: 0 20px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   display: flex;
+//   align-items: center;
+// }
+
+// .spacer {
+//   flex: 1 1 auto;
+// }
+
+// .main-content {
+//   flex-grow: 1;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding: 30px;
+//   text-align: center;
+// }
+
+// .page-title {
+//   color: #00796b;
+//   font-size: 2.5em;
+//   margin-bottom: 15px;
+//   margin-top: 20px;
+// }
+
+// .page-subtitle {
+//   color: #333;
+//   font-size: 1.2em;
+//   max-width: 800px;
+//   margin-bottom: 40px;
+// }
+
+// .loading-spinner, .error-message, .no-data-message {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 15px;
+//   margin-top: 50px;
+//   p {
+//     color: #555;
+//     font-size: 1.1em;
+//   }
+// }
+
+// .error-message {
+//   color: #d32f2f;
+//   .error-icon {
+//     font-size: 3em;
+//     color: #d32f2f;
+//   }
+//   button {
+//     background-color: #d32f2f;
+//     color: white;
+//     margin-top: 10px;
+//   }
+// }
+
+// .no-data-message {
+//   .no-data-icon {
+//     font-size: 4em;
+//     color: #9e9e9e;
+//   }
+//   p {
+//     color: #777;
+//   }
+//   button {
+//     margin-top: 10px;
+//   }
+// }
+
+// .inquiry-list {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   width: 100%;
+//   max-width: 800px;
+// }
+
+// .inquiry-card {
+//   padding: 20px 25px;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+//   background-color: white;
+//   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+//   &:hover {
+//     transform: translateY(-3px);
+//     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+//   }
+
+//   .inquiry-card-header {
+//     display: flex;
+//     align-items: center;
+//     margin-bottom: 15px;
+//     padding-bottom: 10px;
+//     border-bottom: 1px solid #eee;
+
+//     .inquiry-icon {
+//       font-size: 2em;
+//       margin-right: 15px;
+//       color: #3f51b5;
+//     }
+
+//     mat-card-title {
+//       font-size: 1.5em;
+//       font-weight: 600;
+//       color: #00796b;
+//       margin-bottom: 5px;
+//     }
+
+//     mat-card-subtitle {
+//       font-size: 1em;
+//       color: #555;
+//     }
+//   }
+
+//   .inquiry-card-content {
+//     .detail-row {
+//       display: flex;
+//       justify-content: space-between; /* Space out label and value */
+//       margin-bottom: 10px;
+//       font-size: 1.05em;
+//       color: #444;
+
+//       .label {
+//         font-weight: 600;
+//         color: #333;
+//         flex-shrink: 0; /* Prevent label from shrinking */
+//         margin-right: 15px; /* Space between label and value */
+//       }
+
+//       .value {
+//         text-align: right;
+//         flex-grow: 1; /* Allow value to take remaining space */
+//         word-wrap: break-word;
+//       }
+//     }
+//   }
+
+//   mat-card-actions {
+//     padding-top: 15px;
+//     border-top: 1px solid #eee;
+//     margin-top: 15px;
+//     button {
+//       font-size: 0.9em;
+//       padding: 8px 15px;
+//     }
+//   }
+// }
+
+// /* Responsive adjustments */
+// @media (max-width: 768px) {
+//   .inquiry-card {
+//     padding: 15px;
+//   }
+//   .page-title {
+//     font-size: 2em;
+//   }
+//   .page-subtitle {
+//     font-size: 1.1em;
+//   }
+//   .inquiry-card-header mat-card-title {
+//     font-size: 1.3em;
+//   }
+//   .inquiry-card-content .detail-row {
+//     flex-direction: column; /* Stack label and value vertically */
+//     align-items: flex-start;
+//     .label {
+//       margin-bottom: 5px;
+//       margin-right: 0;
+//     }
+//     .value {
+//       text-align: left;
+//     }
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .app-toolbar {
+//     padding: 0 10px;
+//   }
+//   .page-title {
+//     font-size: 1.8em;
+//   }
+//   .inquiry-card {
+//     padding: 10px;
+//   }
+//   .inquiry-card-header .inquiry-icon {
+//     font-size: 1.8em;
+//   }
+//   .inquiry-card-header mat-card-title {
+//     font-size: 1.1em;
+//   }
+// }
+
+
+// /* MODAL STYLES */
+// .modal-overlay {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.7);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 1000; /* Ensure it's on top of other content */
+// }
+
+// .modal-content {
+//   background-color: white;
+//   padding: 30px;
+//   border-radius: 10px;
+//   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+//   max-width: 500px;
+//   width: 90%; /* Responsive width */
+//   animation: fadeInScale 0.3s ease-out forwards; /* Simple animation */
+// }
+
+// .modal-title {
+//   color: #00796b;
+//   font-size: 1.8em;
+//   font-weight: 600;
+//   margin-bottom: 20px;
+//   padding-bottom: 10px;
+//   border-bottom: 1px solid #eee;
+// }
+
+// .modal-details {
+//   margin-bottom: 20px;
+//   .detail-row {
+//     display: flex;
+//     justify-content: space-between;
+//     margin-bottom: 8px;
+//     font-size: 1em;
+//     color: #444;
+//     .label {
+//       font-weight: 600;
+//       color: #333;
+//       flex-shrink: 0;
+//       margin-right: 10px;
+//     }
+//     .value {
+//       text-align: right;
+//       flex-grow: 1;
+//       word-wrap: break-word;
+//     }
+//   }
+// }
+
+// .modal-actions {
+//   display: flex;
+//   justify-content: flex-end;
+//   button {
+//     background-color: #e0e0e0;
+//     color: #333;
+//     &:hover {
+//       background-color: #d0d0d0;
+//     }
+//   }
+// }
+
+// /* Animation for modal */
+// @keyframes fadeInScale {
+//   from {
+//     opacity: 0;
+//     transform: scale(0.9);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+// }
+
+
+// /* Responsive adjustments for modal */
+// @media (max-width: 600px) {
+//   .modal-content {
+//     padding: 20px;
+//   }
+//   .modal-title {
+//     font-size: 1.5em;
+//   }
+//   .modal-details .detail-row {
+//     flex-direction: column;
+//     align-items: flex-start;
+//     .label {
+//       margin-bottom: 3px;
+//       margin-right: 0;
+//     }
+//     .value {
+//       text-align: left;
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+// // /* src/app/inquiry-data/inquiry-data.component.scss */
+// // @use "sass:color";
+
+// // .inquiry-container {
+// //   display: flex;
+// //   flex-direction: column;
+// //   min-height: 100vh;
+// //   background-color: #e0f2f7; /* Consistent light blue background */
+// //   font-family: 'Roboto', sans-serif;
+// // }
+
+// // .app-toolbar {
+// //   background-color: #00796b; /* Darker teal/green for toolbar */
+// //   color: white;
+// //   padding: 0 20px;
+// //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// //   display: flex;
+// //   align-items: center;
+// // }
+
+// // .spacer {
+// //   flex: 1 1 auto;
+// // }
+
+// // .main-content {
+// //   flex-grow: 1;
+// //   display: flex;
+// //   flex-direction: column;
+// //   align-items: center;
+// //   padding: 30px;
+// //   text-align: center;
+// // }
+
+// // .page-title {
+// //   color: #00796b;
+// //   font-size: 2.5em;
+// //   margin-bottom: 15px;
+// //   margin-top: 20px;
+// // }
+
+// // .page-subtitle {
+// //   color: #333;
+// //   font-size: 1.2em;
+// //   max-width: 800px;
+// //   margin-bottom: 40px;
+// // }
+
+// // .loading-spinner, .error-message, .no-data-message {
+// //   display: flex;
+// //   flex-direction: column;
+// //   align-items: center;
+// //   gap: 15px;
+// //   margin-top: 50px;
+// //   p {
+// //     color: #555;
+// //     font-size: 1.1em;
+// //   }
+// // }
+
+// // .error-message {
+// //   color: #d32f2f;
+// //   .error-icon {
+// //     font-size: 3em;
+// //     color: #d32f2f;
+// //   }
+// //   button {
+// //     background-color: #d32f2f;
+// //     color: white;
+// //     margin-top: 10px;
+// //   }
+// // }
+
+// // .no-data-message {
+// //   .no-data-icon {
+// //     font-size: 4em;
+// //     color: #9e9e9e;
+// //   }
+// //   p {
+// //     color: #777;
+// //   }
+// //   button {
+// //     margin-top: 10px;
+// //   }
+// // }
+
+// // .inquiry-list {
+// //   display: flex;
+// //   flex-direction: column;
+// //   gap: 20px;
+// //   width: 100%;
+// //   max-width: 800px;
+// // }
+
+// // .inquiry-card {
+// //   padding: 20px 25px;
+// //   border-radius: 10px;
+// //   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+// //   background-color: white;
+// //   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+// //   &:hover {
+// //     transform: translateY(-3px);
+// //     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+// //   }
+
+// //   .inquiry-card-header {
+// //     display: flex;
+// //     align-items: center;
+// //     margin-bottom: 15px;
+// //     padding-bottom: 10px;
+// //     border-bottom: 1px solid #eee;
+
+// //     .inquiry-icon {
+// //       font-size: 2em;
+// //       margin-right: 15px;
+// //       color: #3f51b5;
+// //     }
+
+// //     mat-card-title {
+// //       font-size: 1.5em;
+// //       font-weight: 600;
+// //       color: #00796b;
+// //       margin-bottom: 5px;
+// //     }
+
+// //     mat-card-subtitle {
+// //       font-size: 1em;
+// //       color: #555;
+// //     }
+// //   }
+
+// //   .inquiry-card-content {
+// //     .detail-row {
+// //       display: flex;
+// //       justify-content: space-between; /* Space out label and value */
+// //       margin-bottom: 10px;
+// //       font-size: 1.05em;
+// //       color: #444;
+
+// //       .label {
+// //         font-weight: 600;
+// //         color: #333;
+// //         flex-shrink: 0; /* Prevent label from shrinking */
+// //         margin-right: 15px; /* Space between label and value */
+// //       }
+
+// //       .value {
+// //         text-align: right;
+// //         flex-grow: 1; /* Allow value to take remaining space */
+// //         word-wrap: break-word;
+// //       }
+// //     }
+// //   }
+
+// //   mat-card-actions {
+// //     padding-top: 15px;
+// //     border-top: 1px solid #eee;
+// //     margin-top: 15px;
+// //     button {
+// //       font-size: 0.9em;
+// //       padding: 8px 15px;
+// //     }
+// //   }
+// // }
+
+// // /* Responsive adjustments */
+// // @media (max-width: 768px) {
+// //   .inquiry-card {
+// //     padding: 15px;
+// //   }
+// //   .page-title {
+// //     font-size: 2em;
+// //   }
+// //   .page-subtitle {
+// //     font-size: 1.1em;
+// //   }
+// //   .inquiry-card-header mat-card-title {
+// //     font-size: 1.3em;
+// //   }
+// //   .inquiry-card-content .detail-row {
+// //     flex-direction: column; /* Stack label and value vertically */
+// //     align-items: flex-start;
+// //     .label {
+// //       margin-bottom: 5px;
+// //       margin-right: 0;
+// //     }
+// //     .value {
+// //       text-align: left;
+// //     }
+// //   }
+// // }
+
+// // @media (max-width: 480px) {
+// //   .app-toolbar {
+// //     padding: 0 10px;
+// //   }
+// //   .page-title {
+// //     font-size: 1.8em;
+// //   }
+// //   .inquiry-card {
+// //     padding: 10px;
+// //   }
+// //   .inquiry-card-header .inquiry-icon {
+// //     font-size: 1.8em;
+// //   }
+// //   .inquiry-card-header mat-card-title {
+// //     font-size: 1.1em;
+// //   }
+// // }
+
+
+// // /* MODAL STYLES */
+// // .modal-overlay {
+// //   position: fixed;
+// //   top: 0;
+// //   left: 0;
+// //   width: 100%;
+// //   height: 100%;
+// //   background-color: rgba(0, 0, 0, 0.7);
+// //   display: flex;
+// //   align-items: center;
+// //   justify-content: center;
+// //   z-index: 1000; /* Ensure it's on top of other content */
+// // }
+
+// // .modal-content {
+// //   background-color: white;
+// //   padding: 30px;
+// //   border-radius: 10px;
+// //   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+// //   max-width: 500px;
+// //   width: 90%; /* Responsive width */
+// //   animation: fadeInScale 0.3s ease-out forwards; /* Simple animation */
+// // }
+
+// // .modal-title {
+// //   color: #00796b;
+// //   font-size: 1.8em;
+// //   font-weight: 600;
+// //   margin-bottom: 20px;
+// //   padding-bottom: 10px;
+// //   border-bottom: 1px solid #eee;
+// // }
+
+// // .modal-details {
+// //   margin-bottom: 20px;
+// //   .detail-row {
+// //     display: flex;
+// //     justify-content: space-between;
+// //     margin-bottom: 8px;
+// //     font-size: 1em;
+// //     color: #444;
+// //     .label {
+// //       font-weight: 600;
+// //       color: #333;
+// //       flex-shrink: 0;
+// //       margin-right: 10px;
+// //     }
+// //     .value {
+// //       text-align: right;
+// //       flex-grow: 1;
+// //       word-wrap: break-word;
+// //     }
+// //   }
+// // }
+
+// // .modal-actions {
+// //   display: flex;
+// //   justify-content: flex-end;
+// //   button {
+// //     background-color: #e0e0e0;
+// //     color: #333;
+// //     &:hover {
+// //       background-color: #d0d0d0;
+// //     }
+// //   }
+// // }
+
+// // /* Animation for modal */
+// // @keyframes fadeInScale {
+// //   from {
+// //     opacity: 0;
+// //     transform: scale(0.9);
+// //   }
+// //   to {
+// //     opacity: 1;
+// //     transform: scale(1);
+// //   }
+// // }
+
+
+// // /* Responsive adjustments for modal */
+// // @media (max-width: 600px) {
+// //   .modal-content {
+// //     padding: 20px;
+// //   }
+// //   .modal-title {
+// //     font-size: 1.5em;
+// //   }
+// //   .modal-details .detail-row {
+// //     flex-direction: column;
+// //     align-items: flex-start;
+// //     .label {
+// //       margin-bottom: 3px;
+// //       margin-right: 0;
+// //     }
+// //     .value {
+// //       text-align: left;
+// //     }
+// //   }
+// // }
+
+
+
+
+
+
+
+
+// // /* src/app/inquiry-data/inquiry-data.component.scss */
+// // @use "sass:color";
+
+// // .inquiry-container {
+// //   display: flex;
+// //   flex-direction: column;
+// //   min-height: 100vh;
+// //   background-color: #e0f2f7; /* Consistent light blue background */
+// //   font-family: 'Roboto', sans-serif;
+// // }
+
+// // .app-toolbar {
+// //   background-color: #00796b; /* Darker teal/green for toolbar */
+// //   color: white;
+// //   padding: 0 20px;
+// //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// //   display: flex;
+// //   align-items: center;
+// // }
+
+// // .spacer {
+// //   flex: 1 1 auto;
+// // }
+
+// // .main-content {
+// //   flex-grow: 1;
+// //   display: flex;
+// //   flex-direction: column;
+// //   align-items: center;
+// //   padding: 30px;
+// //   text-align: center;
+// // }
+
+// // .page-title {
+// //   color: #00796b;
+// //   font-size: 2.5em;
+// //   margin-bottom: 15px;
+// //   margin-top: 20px;
+// // }
+
+// // .page-subtitle {
+// //   color: #333;
+// //   font-size: 1.2em;
+// //   max-width: 800px;
+// //   margin-bottom: 40px;
+// // }
+
+// // .loading-spinner, .error-message, .no-data-message {
+// //   display: flex;
+// //   flex-direction: column;
+// //   align-items: center;
+// //   gap: 15px;
+// //   margin-top: 50px;
+// //   p {
+// //     color: #555;
+// //     font-size: 1.1em;
+// //   }
+// // }
+
+// // .error-message {
+// //   color: #d32f2f;
+// //   .error-icon {
+// //     font-size: 3em;
+// //     color: #d32f2f;
+// //   }
+// //   button {
+// //     background-color: #d32f2f;
+// //     color: white;
+// //     margin-top: 10px;
+// //   }
+// // }
+
+// // .no-data-message {
+// //   .no-data-icon {
+// //     font-size: 4em;
+// //     color: #9e9e9e;
+// //   }
+// //   p {
+// //     color: #777;
+// //   }
+// //   button {
+// //     margin-top: 10px;
+// //   }
+// // }
+
+// // .inquiry-list {
+// //   display: flex;
+// //   flex-direction: column;
+// //   gap: 20px;
+// //   width: 100%;
+// //   max-width: 800px;
+// // }
+
+// // .inquiry-card {
+// //   padding: 20px 25px;
+// //   border-radius: 10px;
+// //   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+// //   background-color: white;
+// //   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+// //   &:hover {
+// //     transform: translateY(-3px);
+// //     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+// //   }
+
+// //   .inquiry-card-header {
+// //     display: flex;
+// //     align-items: center;
+// //     margin-bottom: 15px;
+// //     padding-bottom: 10px;
+// //     border-bottom: 1px solid #eee;
+
+// //     .inquiry-icon {
+// //       font-size: 2em;
+// //       margin-right: 15px;
+// //       color: #3f51b5;
+// //     }
+
+// //     mat-card-title {
+// //       font-size: 1.5em;
+// //       font-weight: 600;
+// //       color: #00796b;
+// //       margin-bottom: 5px;
+// //     }
+
+// //     mat-card-subtitle {
+// //       font-size: 1em;
+// //       color: #555;
+// //     }
+// //   }
+
+// //   .inquiry-card-content {
+// //     .detail-row {
+// //       display: flex;
+// //       justify-content: space-between; /* Space out label and value */
+// //       margin-bottom: 10px;
+// //       font-size: 1.05em;
+// //       color: #444;
+
+// //       .label {
+// //         font-weight: 600;
+// //         color: #333;
+// //         flex-shrink: 0; /* Prevent label from shrinking */
+// //         margin-right: 15px; /* Space between label and value */
+// //       }
+
+// //       .value {
+// //         text-align: right;
+// //         flex-grow: 1; /* Allow value to take remaining space */
+// //         word-wrap: break-word;
+// //       }
+// //     }
+// //   }
+
+// //   mat-card-actions {
+// //     padding-top: 15px;
+// //     border-top: 1px solid #eee;
+// //     margin-top: 15px;
+// //     button {
+// //       font-size: 0.9em;
+// //       padding: 8px 15px;
+// //     }
+// //   }
+// // }
+
+// // /* Responsive adjustments */
+// // @media (max-width: 768px) {
+// //   .inquiry-card {
+// //     padding: 15px;
+// //   }
+// //   .page-title {
+// //     font-size: 2em;
+// //   }
+// //   .page-subtitle {
+// //     font-size: 1.1em;
+// //   }
+// //   .inquiry-card-header mat-card-title {
+// //     font-size: 1.3em;
+// //   }
+// //   .inquiry-card-content .detail-row {
+// //     flex-direction: column; /* Stack label and value vertically */
+// //     align-items: flex-start;
+// //     .label {
+// //       margin-bottom: 5px;
+// //       margin-right: 0;
+// //     }
+// //     .value {
+// //       text-align: left;
+// //     }
+// //   }
+// // }
+
+// // @media (max-width: 480px) {
+// //   .app-toolbar {
+// //     padding: 0 10px;
+// //   }
+// //   .page-title {
+// //     font-size: 1.8em;
+// //   }
+// //   .inquiry-card {
+// //     padding: 10px;
+// //   }
+// //   .inquiry-card-header .inquiry-icon {
+// //     font-size: 1.8em;
+// //   }
+// //   .inquiry-card-header mat-card-title {
+// //     font-size: 1.1em;
+// //   }
+// // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // // @use "sass:color"; // Import color module for Sass functions
+
+// // // .inquiry-container {
+// // //   display: flex;
+// // //   flex-direction: column;
+// // //   min-height: 100vh;
+// // //   background-color: #e0f2f7; /* Consistent light blue background */
+// // //   font-family: 'Roboto', sans-serif;
+// // // }
+
+// // // .app-toolbar {
+// // //   background-color: #00796b; /* Darker teal/green for toolbar */
+// // //   color: white;
+// // //   padding: 0 20px;
+// // //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// // //   display: flex;
+// // //   align-items: center;
+// // // }
+
+// // // .spacer {
+// // //   flex: 1 1 auto;
+// // // }
+
+// // // .main-content {
+// // //   flex-grow: 1;
+// // //   display: flex;
+// // //   flex-direction: column;
+// // //   align-items: center;
+// // //   padding: 30px;
+// // //   text-align: center;
+// // // }
+
+// // // .page-title {
+// // //   color: #00796b;
+// // //   font-size: 2.5em;
+// // //   margin-bottom: 15px;
+// // //   margin-top: 20px;
+// // // }
+
+// // // .page-subtitle {
+// // //   color: #333;
+// // //   font-size: 1.2em;
+// // //   max-width: 800px;
+// // //   margin-bottom: 40px;
+// // // }
+
+// // // .loading-spinner, .error-message, .no-data-message {
+// // //   display: flex;
+// // //   flex-direction: column;
+// // //   align-items: center;
+// // //   gap: 15px;
+// // //   margin-top: 50px;
+// // //   p {
+// // //     color: #555;
+// // //     font-size: 1.1em;
+// // //   }
+// // // }
+
+// // // .error-message {
+// // //   color: #d32f2f;
+// // //   button {
+// // //     background-color: #d32f2f;
+// // //     color: white;
+// // //   }
+// // // }
+
+// // // .no-data-message {
+// // //   .no-data-icon {
+// // //     font-size: 4em;
+// // //     color: #9e9e9e;
+// // //   }
+// // //   p {
+// // //     color: #777;
+// // //   }
+// // // }
+
+
+// // // .inquiry-list {
+// // //   display: flex;
+// // //   flex-direction: column; /* Stack cards vertically */
+// // //   gap: 20px; /* Space between cards */
+// // //   width: 100%;
+// // //   max-width: 800px; /* Max width for the list of cards */
+// // // }
+
+// // // .inquiry-card {
+// // //   display: flex;
+// // //   justify-content: space-between; /* Space out content and button */
+// // //   align-items: center;
+// // //   padding: 20px 25px;
+// // //   border-radius: 10px;
+// // //   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Lighter shadow for list items */
+// // //   background-color: white;
+// // //   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+// // //   &:hover {
+// // //     transform: translateY(-3px);
+// // //     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+// // //   }
+// // // }
+
+// // // .card-content-summary {
+// // //   display: grid;
+// // //   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid for summary items */
+// // //   gap: 10px 20px;
+// // //   flex-grow: 1; /* Allow content to take available space */
+// // //   text-align: left; /* Align text within summary items */
+// // //   margin-right: 20px; /* Space before the button */
+
+// // //   .summary-item {
+// // //     display: flex;
+// // //     align-items: center;
+// // //     gap: 8px; /* Space between icon, label, and value */
+// // //     flex-wrap: wrap; /* Allow items to wrap if space is tight */
+
+// // //     mat-icon {
+// // //       font-size: 1.2em;
+// // //       color: #3f51b5; /* Icon color */
+// // //     }
+
+// // //     .label {
+// // //       font-weight: 600;
+// // //       color: #555;
+// // //       white-space: nowrap; /* Prevent label from wrapping */
+// // //     }
+
+// // //     .value {
+// // //       color: #333;
+// // //       font-weight: 500;
+// // //       word-wrap: break-word;
+// // //     }
+// // //   }
+// // // }
+
+// // // .view-button {
+// // //   padding: 8px 15px;
+// // //   font-size: 0.9em;
+// // //   mat-icon {
+// // //     font-size: 1.1em;
+// // //     margin-right: 5px;
+// // //   }
+// // // }
+
+// // // /* Responsive adjustments */
+// // // @media (max-width: 768px) {
+// // //   .inquiry-card {
+// // //     flex-direction: column; /* Stack content and button vertically */
+// // //     align-items: flex-start; /* Align stacked content to start */
+// // //     padding: 15px;
+// // //   }
+// // //   .card-content-summary {
+// // //     margin-right: 0;
+// // //     margin-bottom: 15px; /* Space between summary and button */
+// // //     width: 100%; /* Take full width when stacked */
+// // //   }
+// // //   .view-button {
+// // //     width: 100%; /* Make button full width when stacked */
+// // //   }
+// // //   .page-title {
+// // //     font-size: 2em;
+// // //   }
+// // //   .page-subtitle {
+// // //     font-size: 1.1em;
+// // //   }
+// // // }
+
+// // // @media (max-width: 480px) {
+// // //   .app-toolbar {
+// // //     padding: 0 10px;
+// // //   }
+// // //   .page-title {
+// // //     font-size: 1.8em;
+// // //   }
+// // //   .inquiry-card {
+// // //     padding: 10px;
+// // //   }
+// // //   .card-content-summary .summary-item {
+// // //     flex-direction: column; /* Stack label and value within item */
+// // //     align-items: flex-start;
+// // //     .label {
+// // //       margin-bottom: 2px;
+// // //     }
+// // //   }
+// // // }

@@ -1,0 +1,114 @@
+<!-- src/app/customer-financial-sheet/customer-financial-sheet.component.html -->
+<div class="financial-container">
+  <!-- Optional: Toolbar for consistency, or remove if not needed here -->
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button (click)="goBackToHome()" aria-label="Back to Home">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Customer Financial Sheet</span>
+    <span class="spacer"></span>
+    <!-- You can add other icons/buttons here if needed -->
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="page-title">Your Financial Overview</h1>
+    <p class="page-subtitle">
+      Access a complete overview of financial transactions between you and the company.
+    </p>
+
+    <div class="cards-grid">
+      <!-- Invoice Details Card -->
+      <mat-card
+        class="financial-card"
+        (mouseover)="invoiceCardHover = true"
+        (mouseout)="invoiceCardHover = false"
+        [ngClass]="{'financial-card-hover': invoiceCardHover}"
+        (click)="navigateToInvoiceDetails()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">receipt_long</mat-icon> <!-- Icon for Invoice Details -->
+          <mat-card-title>Invoice Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Documents holding the amount to be paid back to the company.</p>
+          <p class="card-description">
+            View all your invoices, their statuses, and payment due dates.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Invoice Details')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Payments and Aging Card -->
+      <mat-card
+        class="financial-card"
+        (mouseover)="paymentsCardHover = true"
+        (mouseout)="paymentsCardHover = false"
+        [ngClass]="{'financial-card-hover': paymentsCardHover}"
+        (click)="navigateToPaymentsAging()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">payments</mat-icon> <!-- Icon for Payments and Aging -->
+          <mat-card-title>Payments & Aging</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Displays balances sorted by date interval or aging period definition.</p>
+          <p class="card-description">
+            Review your payment history and analyze outstanding balances by their age.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Payments and Aging')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Credit/Debit Memo Card -->
+      <mat-card
+        class="financial-card"
+        (mouseover)="creditDebitCardHover = true"
+        (mouseout)="creditDebitCardHover = false"
+        [ngClass]="{'financial-card-hover': creditDebitCardHover}"
+        (click)="navigateToCreditDebitMemo()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">credit_card</mat-icon> <!-- Icon for Credit/Debit Memo -->
+          <mat-card-title>Credit/Debit Memo</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Transactions that adjust amounts payable or receivable.</p>
+          <p class="card-description">
+            Access details of credit notes issued to you or debit notes received.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Credit/Debit Memo')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Overall Sales Data Card -->
+      <mat-card
+        class="financial-card"
+        (mouseover)="overallSalesCardHover = true"
+        (mouseout)="overallSalesCardHover = false"
+        [ngClass]="{'financial-card-hover': overallSalesCardHover}"
+        (click)="navigateToOverallSalesData()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">analytics</mat-icon> <!-- Icon for Overall Sales Data -->
+          <mat-card-title>Overall Sales Data</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Comprehensive overview of your sales transactions with the company.</p>
+          <p class="card-description">
+            Summarized sales figures, trends, and key performance indicators.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Overall Sales Data')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

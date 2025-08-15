@@ -1,0 +1,142 @@
+/* src/app/customer-dashboard/customer-dashboard.component.scss */
+@use "sass:color"; // Import color module for Sass functions
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #e0f2f7; /* Consistent light blue background */
+  font-family: 'Roboto', sans-serif;
+}
+
+.app-toolbar {
+  background-color: #00796b; /* Darker teal/green for toolbar */
+  color: white;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to top, but center horizontally */
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.dashboard-title {
+  color: #00796b;
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  margin-top: 20px; /* Add some space below toolbar */
+}
+
+.dashboard-subtitle {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 40px; /* Space before cards */
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid for cards */
+  gap: 30px; /* Space between cards */
+  max-width: 1000px; /* Max width for the grid */
+  width: 100%;
+  justify-items: center; /* Center cards within their grid cells */
+}
+
+.dashboard-card {
+  width: 100%;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  background-color: white;
+
+  mat-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .card-icon {
+      font-size: 4em;
+      width: 1.5em;
+      height: 1.5em;
+      color: #00796b; /* Icon color matching theme */
+      margin-bottom: 10px;
+    }
+
+    mat-card-title {
+      font-size: 1.6em;
+      font-weight: 600;
+      color: #3f51b5; /* Material primary color for card titles */
+    }
+  }
+
+  mat-card-content {
+    p {
+      color: #444;
+      font-size: 1em;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .card-description {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.dashboard-card-hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.help-button {
+  color: #00796b;
+  font-size: 0.9em;
+  margin-top: 10px;
+  mat-icon {
+    font-size: 1.2em;
+    margin-right: 5px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr; /* Stack cards vertically on smaller screens */
+    max-width: 90%;
+  }
+  .dashboard-title {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-toolbar {
+    padding: 0 10px;
+  }
+  .dashboard-title {
+    font-size: 1.8em;
+  }
+  .dashboard-card {
+    padding: 20px;
+  }
+  .dashboard-card mat-card-header .card-icon {
+    font-size: 3.5em;
+  }
+  .dashboard-card mat-card-header mat-card-title {
+    font-size: 1.4em;
+  }
+}

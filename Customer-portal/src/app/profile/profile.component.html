@@ -1,0 +1,65 @@
+<!-- src/app/profile/profile.component.html -->
+<div class="profile-container">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button (click)="goBack()" aria-label="Back to Home">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Your Profile</span>
+    <span class="spacer"></span>
+    <mat-icon>account_circle</mat-icon>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="page-title">Customer Profile</h1>
+    <p class="page-subtitle">View your personal and contact details.</p>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading your profile...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="warn" (click)="goBack()">Go Back</button>
+    </div>
+
+    <!-- Customer Profile Card -->
+    <mat-card *ngIf="!isLoading && !errorMessage && customerProfile" class="profile-card">
+      <mat-card-header class="profile-card-header">
+        <mat-icon class="profile-icon">person_pin</mat-icon>
+        <mat-card-title>{{ customerProfile.NAME }}</mat-card-title>
+        <mat-card-subtitle>Customer ID: {{ customerProfile.KUNNR }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="profile-card-content">
+        <div class="detail-row">
+          <mat-icon>location_on</mat-icon>
+          <span class="label">Address:</span>
+          <span class="value">{{ customerProfile.ADDRESS }}, {{ customerProfile.STREET }}</span>
+        </div>
+        <div class="detail-row">
+          <mat-icon>location_city</mat-icon>
+          <span class="label">City:</span>
+          <span class="value">{{ customerProfile.CITY }}</span>
+        </div>
+        <div class="detail-row">
+          <mat-icon>markunread_mailbox</mat-icon>
+          <span class="label">Postal Code:</span>
+          <span class="value">{{ customerProfile.POSTAL_CODE }}</span>
+        </div>
+        <!-- Add more profile fields here as needed -->
+      </mat-card-content>
+      <!-- The mat-card-actions block (which contained the "Edit Profile" button) has been removed here -->
+    </mat-card>
+
+    <!-- No Profile Data Message -->
+    <div *ngIf="!isLoading && !errorMessage && !customerProfile" class="no-data-message">
+      <mat-icon class="no-data-icon">sentiment_dissatisfied</mat-icon>
+      <p>No profile data available for your account.</p>
+      <p>Please ensure you are logged in or contact support.</p>
+      <button mat-raised-button color="accent" (click)="goBack()">Return Home</button>
+    </div>
+  </div>
+</div>

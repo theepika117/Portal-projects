@@ -1,0 +1,436 @@
+// Color palette - same as home page
+$pinky: #fbe3e8;
+$blue-greeny: #5cbdb9;
+$chrysanthemum-pink: #ff7bac;
+$blue: #838ee8;
+$grassy-green: #9bc400;
+$ripe-mango: #fec02d;
+$bright-blue: #3796e9;
+
+.payslip-container {
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, $blue-greeny 0%, $bright-blue 100%);
+  z-index: -2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/background-image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    z-index: -1;
+  }
+}
+.payslip-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Page header styling
+.page-header {
+  text-align: center;
+  margin: 2rem 0 3rem;
+  color: white;
+  
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .back-icon {
+      margin-right: 0.5rem;
+    }
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.3;
+  }
+  
+  .page-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+}
+
+// Styles for the month/year selection card
+.selection-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.summary-section {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.selection-controls {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    
+    label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+  .form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: white;
+    font-size: 0.875rem;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: $blue-greeny;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: $bright-blue;
+      box-shadow: 0 0 0 3px rgba($bright-blue, 0.1);
+    }
+  }
+}
+// Payslip details section styling
+.details-section {
+  margin: 2rem 0;
+}
+
+.payslip-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.payslip-header {
+  margin-bottom: 1.5rem;
+  
+  .header-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+}
+
+.payslip-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  
+  .info-icon {
+    font-size: 1.5rem;
+  }
+  
+  .info-label {
+    font-size: 0.875rem;
+    color: #666;
+    flex: 1;
+  }
+  
+  .info-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+  }
+}
+
+// Styles for the download button section
+.actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.download-btn {
+  background-color: $chrysanthemum-pink;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: darken($chrysanthemum-pink, 10%);
+  transform: translateY(-2px);
+}
+
+// Loading state styling
+.loading-state {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+}
+
+// Simple modal styles to replace alert()
+.modal {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive design for smaller screens
+@media (max-width: 768px) {
+  .payslip-content {
+    padding: 1rem;
+  }
+  
+  .page-header {
+    .page-title {
+      font-size: 2rem;
+    }
+    
+    .page-subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  .payslip-info {
+    grid-template-columns: 1fr;
+  }
+
+  .selection-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+
+// .summary-icon {
+//   font-size: 2.5rem;
+// }
+
+// .summary-title {
+//   font-size: 1.5rem;
+//   margin-top: 10px;
+//   font-weight: bold;
+// }
+
+// .summary-subtitle {
+//   font-size: 0.9rem;
+//   color: #666;
+// }
+
+// .cards-container {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+//   gap: 15px;
+// }
+
+// .card {
+//   background: white;
+//   padding: 15px;
+//   border-radius: 15px;
+//   text-align: center;
+//   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+// }
+
+// .card-icon {
+//   font-size: 1.8rem;
+//   margin-bottom: 10px;
+// }
+
+// .download-section {
+//   margin-top: 20px;
+// }
+
+// .download-btn {
+//   background-color: #ff4081;
+//   color: white;
+//   padding: 10px 20px;
+//   border: none;
+//   border-radius: 8px;
+//   cursor: pointer;
+//   font-size: 1rem;
+// }
+
+// .download-btn:hover {
+//   background-color: #e6366d;
+// }
+
+
+
+
+
+
+
+
+
+
+// @import '../leave-request/leave-request.component.scss';
+
+// /* Payslip-specific styles */
+// .payslip-card {
+//   background: white;
+//   padding: 1.5rem;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+// }
+
+// .detail-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+//   gap: 1rem;
+// }
+
+// .detail-item {
+//   display: flex;
+//   flex-direction: column;
+//   padding: 0.5rem;
+//   background: #f8f9fa;
+//   border-radius: 8px;
+// }
+
+// .detail-label {
+//   font-size: 0.85rem;
+//   color: #6c757d;
+// }
+
+// .detail-value {
+//   font-size: 1rem;
+//   font-weight: 600;
+//   color: #212529;
+// }

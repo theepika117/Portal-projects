@@ -1,0 +1,109 @@
+<div class="profile-container">
+  <div class="background-overlay"></div>
+  
+  <div class="profile-content">
+    <div class="profile-header">
+      <button class="back-button" (click)="goBack()">
+        <i class="back-icon">←</i>
+        <span>Back to Home</span>
+      </button>
+      <h1 class="profile-title">Your Profile, Your Workplace Passport</h1>
+      <p class="profile-subtitle">Your complete professional identity in one place</p>
+    </div>
+
+    <div class="profile-card" *ngIf="!isLoading && employeeProfile">
+      <div class="profile-avatar">
+        <div class="avatar-circle">
+          <i class="avatar-icon">👤</i>
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <div class="detail-section">
+          <h3>Personal Information</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <i class="detail-icon">👤</i>
+              <span class="detail-label">Full Name</span>
+              <span class="detail-value">{{ getFullName() }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">🆔</i>
+              <span class="detail-label">Employee ID</span>
+              <span class="detail-value">{{ employeeProfile?.EmpId }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">⚧️</i>
+              <span class="detail-label">Gender</span>
+              <span class="detail-value">{{ getGenderDisplay(employeeProfile.Gender) }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">🏠</i>
+              <span class="detail-label">Address</span>
+              <span class="detail-value">{{ employeeProfile.Address }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">🏙️</i>
+              <span class="detail-label">City</span>
+              <span class="detail-value">{{ employeeProfile.City }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">🌍</i>
+              <span class="detail-label">Nationality</span>
+              <span class="detail-value">{{ employeeProfile.Nationality }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>Employment Details</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <i class="detail-icon">🏢</i>
+              <span class="detail-label">Company Code</span>
+              <span class="detail-value">{{ employeeProfile.CompanyCode }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">💼</i>
+              <span class="detail-label">Job Position</span>
+              <span class="detail-value">{{ employeeProfile.JobPosition }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">📋</i>
+              <span class="detail-label">Job</span>
+              <span class="detail-value">{{ employeeProfile.Job }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">🏛️</i>
+              <span class="detail-label">Cost Center</span>
+              <span class="detail-value">{{ employeeProfile.CostCenter || 'N/A' }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">🌏</i>
+              <span class="detail-label">Country</span>
+              <span class="detail-value">{{ employeeProfile.Country || 'N/A' }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="detail-icon">🏛️</i>
+              <span class="detail-label">State</span>
+              <span class="detail-value">{{ employeeProfile.State || 'N/A' }}</span>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="loading-spinner"></div>
+      <p>Loading your profile...</p>
+    </div>
+
+    <div class="error-state" *ngIf="errorMessage">
+      <i class="error-icon">⚠️</i>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-button" (click)="fetchProfileData()">Retry</button>
+    </div>
+  </div>
+</div>

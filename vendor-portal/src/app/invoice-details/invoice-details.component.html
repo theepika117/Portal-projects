@@ -1,0 +1,199 @@
+<div class="invoice-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Fetching Invoice data from SAP...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <div class="error-message">
+      <span class="error-icon">⚠️</span>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="refreshInvoices()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Invoice Details Content -->
+  <div *ngIf="!isLoading && !errorMessage" class="invoice-content">
+    <!-- Header Section -->
+    <div class="invoice-header">
+      <div class="invoice-title">
+        <h1>Invoice Details</h1>
+        <button class="refresh-btn" (click)="refreshInvoices()">
+          <span class="refresh-icon">🔄</span>
+          Refresh
+        </button>
+      </div>
+      <div class="invoice-description">
+        <p>Access complete invoice information for all procured goods and services. View billed amounts, material details, and transaction data as submitted by the vendor in the invoice document.</p>
+      </div>
+    </div>
+
+    <!-- Invoice Table -->
+    <div class="invoice-table-container">
+      <table class="invoice-table">
+        <thead>
+          <tr>
+            <th>
+              <span class="header-icon">📄</span>
+              Document Number
+            </th>
+            <th>
+              <span class="header-icon">💰</span>
+              Amount ({{ invoiceData[0]?.WAERS }})
+            </th>
+            <th>
+              <span class="header-icon">📊</span>
+              Tax Amount ({{ invoiceData[0]?.WAERS }})
+            </th>
+            <th>
+              <span class="header-icon">💵</span>
+              Gross Amount ({{ invoiceData[0]?.WAERS }})
+            </th>
+            <th>
+              <span class="header-icon">⚡</span>
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of invoiceData" class="invoice-row">
+            <td class="doc-number">{{ invoice.DOC_NUM }}</td>
+            <td class="amount">{{ invoice.AMOUNT }}</td>
+            <td class="tax-amount">{{ invoice.TAX_AMOUNT }}</td>
+            <td class="gross-amount">{{ invoice.GROSS_AMOUNT }}</td>
+            <td class="actions">
+              <button class="view-btn" (click)="viewInvoice(invoice)">
+                <span class="view-icon">👁️</span>
+                View
+              </button>
+              <button class="download-btn" (click)="downloadInvoice(invoice.DOC_NUM)">
+                <span class="download-icon">📥</span>
+                Download
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="invoiceData.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>No Invoices Available</h3>
+      <p>There are currently no Invoice Details available.</p>
+    </div>
+  </div>
+
+  <!-- Popup Modal -->
+  <div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-modal" (click)="$event.stopPropagation()">
+      <div class="popup-header">
+        <h2>
+          <span class="popup-icon">🧾</span>
+          Invoice Details - {{ selectedInvoice?.DOC_NUM }}
+        </h2>
+        <button class="close-btn" (click)="closePopup()">
+          <span>✕</span>
+        </button>
+      </div>
+      
+      <div class="popup-content" *ngIf="selectedInvoice">
+        <div class="detail-sections">
+          <!-- Document Information -->
+          <div class="detail-section">
+            <h3>Document Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Document Number</label>
+                <span>{{ selectedInvoice.DOC_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Fiscal Year</label>
+                <span>{{ selectedInvoice.FISCAL_YEAR }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Type</label>
+                <span>{{ selectedInvoice.DOC_TYPE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Date</label>
+                <span>{{ selectedInvoice.DOC_DATE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>User Name</label>
+                <span>{{ selectedInvoice.USER_NAME }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Company Code</label>
+                <span>{{ selectedInvoice.COMPANY_CODE }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Financial Information -->
+          <div class="detail-section">
+            <h3>Financial Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Currency</label>
+                <span>{{ selectedInvoice.WAERS }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Amount</label>
+                <span>{{ selectedInvoice.AMOUNT }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Tax Amount</label>
+                <span>{{ selectedInvoice.TAX_AMOUNT }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Gross Amount</label>
+                <span>{{ selectedInvoice.GROSS_AMOUNT }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Purchase Order Information -->
+          <div class="detail-section">
+            <h3>Purchase Order Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Purchase Document Number</label>
+                <span>{{ selectedInvoice.PURCHASE_DOC_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Item Number</label>
+                <span>{{ selectedInvoice.ITEM_NUM }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Material & Location Information -->
+          <div class="detail-section">
+            <h3>Material & Location Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Material Number</label>
+                <span>{{ selectedInvoice.MATERIAL_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Plant</label>
+                <span>{{ selectedInvoice.PLANT }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Quantity</label>
+                <span>{{ selectedInvoice.QUANTITY }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Unit of Measure</label>
+                <span>{{ selectedInvoice.UNIT }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

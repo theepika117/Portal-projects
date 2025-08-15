@@ -1,0 +1,150 @@
+/* src/app/home/home.component.scss */
+
+.home-container {
+  display: flex;
+  flex-direction: column; // Arrange content vertically
+  min-height: 100vh;
+  background-color: #e0f2f7; // Consistent background color from login page
+  font-family: 'Roboto', sans-serif;
+}
+
+.app-toolbar {
+  background-color: #00796b; // A darker teal/green for the toolbar
+  color: white; // White text for contrast
+  padding: 0 20px; // Padding on sides
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow
+}
+
+.spacer {
+  flex: 1 1 auto; // Pushes content to the right
+}
+
+.main-content {
+  flex-grow: 1; // Allows content to take up remaining space
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Center content vertically
+  align-items: center;     // Center content horizontally
+  padding: 30px;
+  text-align: center;
+}
+
+.welcome-title {
+  color: #00796b;
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.welcome-subtitle {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.welcome-text {
+  color: #555;
+  font-size: 1em;
+  margin-bottom: 40px; // Space before cards
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap; // Allow cards to wrap on smaller screens
+  justify-content: center; // Center cards horizontally
+  gap: 30px; // Space between cards
+  max-width: 900px; // Limit width of card container
+  width: 100%;
+}
+
+.feature-card {
+  width: 100%;
+  max-width: 400px; // Max width for individual cards
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); // Soft shadow
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer; // Indicate clickable
+  background-color: white; // White background for cards
+
+  mat-card-header {
+    display: flex;
+    flex-direction: column; // Stack icon and title
+    align-items: center;
+    margin-bottom: 20px;
+
+    .card-icon {
+      font-size: 4em; // Large icon size
+      width: 1.5em;   // Ensure icon takes up proper space
+      height: 1.5em;
+      color: #00796b; // Icon color matching theme
+      margin-bottom: 10px;
+    }
+
+    mat-card-title {
+      font-size: 1.6em;
+      font-weight: 600;
+      color: #3f51b5; // Material primary color for card titles
+    }
+  }
+
+  mat-card-content {
+    p {
+      color: #444;
+      font-size: 1em;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .card-description {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.feature-card-hover {
+  transform: translateY(-8px); // More pronounced lift on hover
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); // Darker shadow
+}
+
+.help-button {
+  color: #00796b; // Match button color to theme
+  font-size: 0.9em;
+  margin-top: 10px;
+  mat-icon {
+    font-size: 1.2em;
+    margin-right: 5px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column; // Stack cards vertically on small screens
+    align-items: center;
+  }
+  .feature-card {
+    max-width: 90%; // Allow cards to take more width on small screens
+  }
+  .welcome-title {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-toolbar {
+    padding: 0 10px;
+  }
+  .welcome-title {
+    font-size: 1.8em;
+  }
+  .feature-card {
+    padding: 20px;
+  }
+  .feature-card mat-card-header .card-icon {
+    font-size: 3.5em;
+  }
+  .feature-card mat-card-header mat-card-title {
+    font-size: 1.4em;
+  }
+}

@@ -1,0 +1,87 @@
+<!--div style="text-align:center; padding: 50px; background-color: #e0f2f7; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <h1 style="color: #00796b; font-size: 2.5em; margin-bottom: 20px;">Welcome to your Customer Dashboard!</h1>
+  <p style="color: #333; font-size: 1.2em;">You have successfully logged in.</p>
+  <p style="color: #555; font-size: 1em;">This is where you'll access and view your complete transactions.</p>
+  <-- More dashboard content will go here -->
+<!-- src/app/home/home.component.html -->
+<div class="home-container">
+  <!-- Top Toolbar with Menu Icon -->
+  <mat-toolbar class="app-toolbar">
+    <span>Customer Portal</span>
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="Menu">
+      <mat-icon>menu</mat-icon> <!-- Menu icon -->
+    </button>
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item (click)="navigateToProfile()">
+        <mat-icon>person</mat-icon> <!-- Person icon for My Profile -->
+        <span>My Profile</span>
+      </button>
+      <button mat-menu-item (click)="showQuickHelp('Portal')">
+        <mat-icon>help_outline</mat-icon> <!-- Help icon -->
+        <span>Help</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon> <!-- Logout icon -->
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <!-- Main Content Area with Cards -->
+  <div class="main-content">
+    <h1 class="welcome-title">Welcome back, Great to see you again!</h1>
+    <p class="welcome-subtitle">You have successfully logged in.</p>
+    <p class="welcome-text">Explore your transactions and financial data below.</p>
+
+    <div class="cards-container">
+      <!-- Dashboard Card -->
+      <mat-card
+        class="feature-card"
+        (mouseover)="dashboardCardHover = true"
+        (mouseout)="dashboardCardHover = false"
+        [ngClass]="{'feature-card-hover': dashboardCardHover}"
+        (click)="navigateToCustomerDashboard()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">dashboard</mat-icon> <!-- Dashboard icon -->
+          <mat-card-title>Customer Dashboard</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>View your end-to-end transactions with the company.</p>
+          <p class="card-description">
+            This section provides a comprehensive overview of all your sales and distribution activities,
+            including order history, delivery status, and outstanding items.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Dashboard')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Financial Sheets Card -->
+      <mat-card
+        class="feature-card"
+        (mouseover)="financialCardHover = true"
+        (mouseout)="financialCardHover = false"
+        [ngClass]="{'feature-card-hover': financialCardHover}"
+        (click)="navigateToFinancialSheets()"
+      >
+        <mat-card-header>
+          <mat-icon class="card-icon">account_balance</mat-icon> <!-- Financial icon -->
+          <mat-card-title>Financial Sheets</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Access complete financial transactions between you and the company.</p>
+          <p class="card-description">
+            This includes invoices, payments, credit memos, and account statements,
+            giving you a clear picture of your financial interactions.
+          </p>
+          <button mat-button class="help-button" (click)="$event.stopPropagation(); showQuickHelp('Financial Sheets')">
+            <mat-icon>info</mat-icon> Quick Help
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

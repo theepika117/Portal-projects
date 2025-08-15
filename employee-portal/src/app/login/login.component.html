@@ -1,0 +1,85 @@
+<div class="login-container">
+  <div class="login-wrapper">
+    <div class="login-left">
+      <div class="welcome-section">
+        <h1>EaseDesk</h1>
+        <p>Simplifing your day at work!</p>
+        <p>Sign in to access your dashboard and manage your work efficiently</p>
+        <div><img src="assets/login-image.jpg" alt="portal cartoon"></div>
+
+      </div>
+    </div>
+    
+    <div class="login-right">
+      <div class="login-form-container">
+        <div class="logo-section">
+          <div class="logo-circle">
+            <i class="logo-icon">👤</i>
+          </div>
+          <h2>Employee Login</h2>
+        </div>
+        
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <div class="form-group">
+            <label for="employeeId">Employee ID</label>
+            <div class="input-wrapper">
+              <i class="input-icon">👤</i>
+              <input 
+                type="text" 
+                id="employeeId" 
+                formControlName="employeeId"
+                placeholder="Enter your employee ID"
+                maxlength="8"
+                [class.error]="loginForm.get('employeeId')?.invalid && loginForm.get('employeeId')?.touched">
+            </div>
+            <div class="error-message" *ngIf="loginForm.get('employeeId')?.invalid && loginForm.get('employeeId')?.touched">
+              Employee ID is required (8 digits)
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <i class="input-icon">🔒</i>
+              <input 
+                [type]="showPassword ? 'text' : 'password'" 
+                id="password" 
+                formControlName="password"
+                placeholder="Enter your password"
+                [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              <button 
+                type="button" 
+                class="toggle-password" 
+                (click)="togglePasswordVisibility()"
+                [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+                <i class="password-toggle-icon">{{ showPassword ? '🙈' : '👁️' }}</i>
+              </button>
+            </div>
+            <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              Password is required (minimum 6 characters)
+            </div>
+          </div>
+          
+          <div class="form-options">
+            <label class="checkbox-container">
+              <input type="checkbox" formControlName="rememberMe">
+              <span class="checkmark"></span>
+              Remember me
+            </label>
+          </div>
+          
+          <button 
+            type="submit" 
+            class="login-button"
+            [disabled]="loginForm.invalid || isLoading">
+            <span *ngIf="!isLoading">Sign In</span>
+            <span *ngIf="isLoading" class="loading">
+              <i class="spinner"></i>
+              Signing in...
+            </span>
+          </button>        
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

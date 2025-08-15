@@ -1,0 +1,221 @@
+
+<!-- src/app/login/login.component.html -->
+
+<div class="login-container">
+  <!-- Material Card for the login form -->
+  <mat-card
+    class="login-card"
+    (mouseover)="cardHover = true"
+    (mouseout)="cardHover = false"
+    [ngClass]="{ 'login-card-hover': cardHover }"
+  >
+    <mat-card-header>
+      <mat-card-title>Customer Login</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Reactive form linked to loginForm FormGroup -->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <!-- Customer ID -->
+        <mat-form-field appearance="fill">
+          <mat-label>Customer ID</mat-label>
+          <input matInput formControlName="customerId" required />
+          <mat-error *ngIf="loginForm.get('customerId')?.hasError('required') && loginForm.get('customerId')?.touched">
+            Customer ID is required.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+            Password is required.
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched">
+            Password must be at least 8 characters long.
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('pattern') && loginForm.get('password')?.touched">
+            Password must contain 1 uppercase, 1 lowercase, 1 number, and 1 special character.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Login Button with Spinner -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid || isLoggingIn"
+          (mouseover)="buttonHover = true"
+          (mouseout)="buttonHover = false"
+          [ngClass]="{ 'login-button-hover': buttonHover }"
+        >
+          <span *ngIf="!isLoggingIn">Login</span>
+          <mat-spinner *ngIf="isLoggingIn" diameter="20"></mat-spinner>
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="login-container">
+  <!!-- Material Card for the login form -->
+  <!--mat-card
+    class="login-card"
+    (mouseover)="cardHover = true"
+    (mouseout)="cardHover = false"
+    [ngClass]="{ 'login-card-hover': cardHover }"
+  >
+    <mat-card-header>
+      <mat-card-title>Customer Login</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      < Reactive form linked to loginForm FormGroup -->
+      <!--form [formGroup]="loginForm" (ngSubmit)="onLogin()"
+        <!!-- Customer ID -->
+        <!--mat-form-field appearance="fill">
+          <mat-label>Customer ID</mat-label>
+          <input matInput formControlName="customerId" required />
+          <mat-error *ngIf="loginForm.get('customerId')?.hasError('required') && loginForm.get('customerId')?.touched">
+            Customer ID is required.
+          </mat-error>
+        </mat-form-field>
+
+        <!!-- Password -->
+        <!--mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+            Password is required.
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched">
+            Password must be at least 8 characters long.
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('pattern') && loginForm.get('password')?.touched">
+            Password must contain 1uppercase,  1number, and 1special character.
+          </mat-error>
+        </mat-form-field>
+
+        <!!-- Login Button with Spinner -->
+        <!-- <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid || isLoggingIn"
+          (mouseover)="buttonHover = true"
+          (mouseout)="buttonHover = false"
+          [ngClass]="{ 'login-button-hover': buttonHover }"
+        >
+          <mat-spinner *ngIf="isLoggingIn" diameter="20" strokeWidth="3"></mat-spinner>
+          <span *ngIf="!isLoggingIn">Login</span>
+        </button> -->
+
+        <!--button
+           mat-raised-button
+           color="primary"
+            [disabled]="loginForm.invalid || isLoggingIn"
+            (click)="onLogin()"
+>
+            <span *ngIf="!isLoggingIn">Login</span>
+            <mat-spinner *ngIf="isLoggingIn" diameter="20"></mat-spinner>
+          </button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="login-container">
+  <!!-- Material Card for the login form -->
+  <!-- (mouseover) and (mouseout) events toggle the cardHover flag for visual effects -->
+  <!-- [ngClass] conditionally applies the 'login-card-hover' class based on cardHover -->
+  <!--mat-card
+    class="login-card"
+    (mouseover)="cardHover = true"
+    (mouseout)="cardHover = false"
+    [ngClass]="{'login-card-hover': cardHover}"
+  >
+    <mat-card-header>
+      <mat-card-title>Customer Login</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!!-- Reactive form linked to loginForm FormGroup -->
+      <!-- (ngSubmit) calls the onLogin() method when the form is submitted -->
+      <!--form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <!!-- Customer ID Input Field -->
+        <!--mat-form-field appearance="outline">
+          <mat-label>Customer ID</mat-label>
+          <input matInput formControlName="customerId" required>
+          <!!-- Error message for required Customer ID -->
+          <!--mat-error *ngIf="loginForm.get('customerId')?.hasError('required') && loginForm.get('customerId')?.touched">
+            Customer ID is required.
+          </mat-error>
+        </mat-form-field>
+
+        <!1-- Password Input Field -->
+        <!--mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required>
+          <!!-- Error message for required Password -->
+          <!--mat-error *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+            Password is required.
+          </mat-error>
+          <!!-- Error message for minimum length -->
+          <!--mat-error *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched">
+            Password must be at least 8 characters long.
+          </mat-error>
+          <!!-- Error message for password pattern (complexity) -->
+          <!--mat-error *ngIf="loginForm.get('password')?.hasError('pattern') && loginForm.get('password')?.touched">
+            Password must contain at least one uppercase, one lowercase, one number, and one special character.
+          </mat-error>
+        </mat-form-field>
+
+        <!!-- Login Button -->
+        <!-- [disabled] binds to the form's validity, enabling only when the form is valid -->
+        <!-- (mouseover) and (mouseout) events toggle the buttonHover flag for visual effects -->
+        <!-- [ngClass] conditionally applies the 'login-button-hover' class based on buttonHover -->
+        <!--button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid"
+          (mouseover)="buttonHover = true"
+          (mouseout)="buttonHover = false"
+          [ngClass]="{'login-button-hover': buttonHover}"
+        >
+          Login
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->

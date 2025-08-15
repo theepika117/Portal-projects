@@ -1,0 +1,108 @@
+<div class="inquiry-container">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button routerLink="/customer-dashboard" aria-label="Back to Dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Inquiry Data</span>
+    <span class="spacer"></span>
+    <mat-icon>search</mat-icon>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="page-title">Your Inquiries</h1>
+    <p class="page-subtitle">Details of your past inquiries and their current status.</p>
+
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Fetching your inquiry data...</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="warn" (click)="fetchInquiryData()">Try Again</button>
+    </div>
+
+    <div *ngIf="!isLoading && !errorMessage && inquiries && inquiries.length > 0" class="inquiry-list">
+      <mat-card *ngFor="let inquiry of inquiries" class="inquiry-card">
+        <div class="card-content-summary">
+          <div class="summary-item">
+            <mat-icon>receipt</mat-icon>
+            <span class="label">Sales Document No:</span>
+            <span class="value">{{ inquiry.SALES_DOC_NO }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span class="label">Creation Date:</span>
+            <span class="value">{{ inquiry.CREATION_DATE }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>info</mat-icon>
+            <span class="label">Description:</span>
+            <span class="value">{{ inquiry.DESCRIPTION }}</span>
+          </div>
+        </div>
+        <button mat-raised-button color="accent" (click)="openInquiryDetailsModal(inquiry)" class="view-button">
+          <mat-icon>visibility</mat-icon> View Details
+        </button>
+      </mat-card>
+    </div>
+
+    <div *ngIf="!isLoading && (!inquiries || inquiries.length === 0) && !errorMessage" class="no-data-message">
+      <mat-icon class="no-data-icon">sentiment_dissatisfied</mat-icon>
+      <p>No inquiry data found for this customer.</p>
+      <p>Please contact support if you believe this is an error.</p>
+      <button mat-raised-button color="accent" (click)="fetchInquiryData()">Reload Data</button>
+    </div>
+  </div>
+
+  <div *ngIf="showModal" class="modal-overlay">
+    <div class="modal-content">
+      <h2 class="modal-title">Inquiry Details</h2>
+      <button mat-icon-button class="modal-close-icon-button" (click)="closeInquiryDetailsModal()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div *ngIf="selectedInquiry" class="modal-details">
+        <div class="detail-row">
+          <span class="label">Sales Document No:</span>
+          <span class="value">{{ selectedInquiry.SALES_DOC_NO }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Creation Date:</span>
+          <span class="value">{{ selectedInquiry.CREATION_DATE }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Customer ID:</span>
+          <span class="value">{{ selectedInquiry.CUSTOMER_ID }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Sales Group:</span>
+          <span class="value">{{ selectedInquiry.SALES_GRP }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Document Item:</span>
+          <span class="value">{{ selectedInquiry.DOC_ITEM }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Material No:</span>
+          <span class="value">{{ selectedInquiry.MATERIAL_NO }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Description:</span>
+          <span class="value">{{ selectedInquiry.DESCRIPTION }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Sales Unit (VRKME):</span>
+          <span class="value">{{ selectedInquiry.VRKME }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Measurement Unit:</span>
+          <span class="value">{{ selectedInquiry.MEASUREMENT_UNIT }}</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button mat-raised-button color="basic" (click)="closeInquiryDetailsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

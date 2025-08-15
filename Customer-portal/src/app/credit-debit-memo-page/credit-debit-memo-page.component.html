@@ -1,0 +1,65 @@
+<!-- src/app/credit-debit-memo-page/credit-debit-memo-page.component.html -->
+<div class="memo-container">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button (click)="goBack()" aria-label="Back to Financial Sheet">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Credit/Debit Memo</span>
+    <span class="spacer"></span>
+    <mat-icon>search</mat-icon>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="page-title">Your Credit/Debit Memos</h1>
+    <p class="page-subtitle">
+      Transactions that adjust amounts payable or receivable.
+      A debit memo reduces amounts payable to a vendor, while a credit memo reduces amounts receivable from a customer.
+    </p>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Fetching your credit/debit memo data...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="warn" (click)="goBack()">Go Back</button>
+    </div>
+
+    <!-- Memo List -->
+    <div *ngIf="!isLoading && !errorMessage && memos.length > 0" class="memo-list">
+      <mat-card *ngFor="let memo of memos" class="memo-card">
+        <div class="card-content-summary">
+          <div class="summary-item">
+            <mat-icon>description</mat-icon>
+            <span class="label">Document No:</span>
+            <span class="value">{{ memo.DocNum }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>person</mat-icon>
+            <span class="label">Sold-to Party:</span>
+            <span class="value">{{ memo.SoldToParty }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>event</mat-icon>
+            <span class="label">Billing Date:</span>
+            <span class="value">{{ memo.BillingDate }}</span>
+          </div>
+        </div>
+        <button mat-raised-button color="accent" (click)="viewMemoDetails(memo)" class="view-button">
+          <mat-icon>visibility</mat-icon> View Details
+        </button>
+      </mat-card>
+    </div>
+
+    <!-- No Data Message -->
+    <div *ngIf="!isLoading && !errorMessage && memos.length === 0" class="no-data-message">
+      <mat-icon class="no-data-icon">sentiment_dissatisfied</mat-icon>
+      <p>No credit/debit memo data found for your account.</p>
+      <p>Please contact support if you believe this is an error.</p>
+    </div>
+  </div>
+</div>
+

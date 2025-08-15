@@ -1,0 +1,140 @@
+<div class="leave-request-container">
+  <div class="background-overlay"></div>
+  
+  <div class="leave-request-content">
+    <div class="page-header">
+      <button class="back-button" (click)="goBack()">
+        <i class="back-icon">←</i>
+        <span>Back to Home</span>
+      </button>
+      <h1 class="page-title">Your Leave, Your Balance</h1>
+      <p class="page-subtitle">Manage your days off smartly for better work-life harmony</p>
+    </div>
+
+    <!-- Sort and Filter Controls -->
+    <div class="controls-section" *ngIf="!isLoading && leaveDetails.length > 0">
+      <div class="controls-container">
+        <div class="filter-group">
+          <label for="typeFilter">Filter by Type:</label>
+          <select id="typeFilter" [(ngModel)]="selectedType" (change)="applyFilters()" class="control-select">
+            <option value="">All Types</option>
+            <option *ngFor="let type of uniqueTypes" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="dateFilter">Filter by Date:</label>
+          <select id="dateFilter" [(ngModel)]="dateFilterOption" (change)="applyFilters()" class="control-select">
+            <option value="">All Dates</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="past">Past</option>
+            <option value="current">Current</option>
+          </select>
+        </div>
+
+        <div class="sort-group">
+          <label for="sortBy">Sort by:</label>
+          <select id="sortBy" [(ngModel)]="sortBy" (change)="applySorting()" class="control-select">
+            <option value="type">Type</option>
+            <option value="startDate">Start Date</option>
+            <option value="endDate">End Date</option>
+            <option value="quotaAssigned">Quota Assigned</option>
+            <option value="quotaUsed">Quota Used</option>
+            <option value="availableBalance">Available Balance</option>
+          </select>
+        </div>
+
+        <div class="sort-order">
+          <button class="sort-toggle" (click)="toggleSortOrder()" [class.active]="sortOrder === 'desc'">
+            <i class="sort-icon">{{ sortOrder === 'asc' ? '↑' : '↓' }}</i>
+            {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="leave-summary" *ngIf="!isLoading && filteredLeaveDetails.length > 0">
+      <div class="summary-card">
+        <div class="summary-icon">📊</div>
+        <h3>Leave Summary</h3>
+        <p>Total leave balance across all categories</p>
+      </div>
+    </div>
+
+    <div class="leave-details" *ngIf="!isLoading && filteredLeaveDetails.length > 0">
+      <div class="leave-card" *ngFor="let leave of filteredLeaveDetails">
+        
+        <div class="leave-header">
+          <div class="leave-type">
+            <i class="leave-icon">🗓️</i>
+            <h3>{{ leave.Type }}</h3>
+          </div>
+          <div class="leave-badge">{{ leave.Type }}</div>
+        </div>
+
+        <div class="leave-info-grid">
+          <div class="info-item">
+            <i class="info-icon">📦</i>
+            <span class="info-label">Absence Quota</span>
+            <span class="info-value">{{ leave.AbsenceQuota }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="info-icon">📅</i>
+            <span class="info-label">Start Date</span>
+            <span class="info-value">{{ formatDate(leave.StartDate) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <i class="info-icon">📅</i>
+            <span class="info-label">End Date</span>
+            <span class="info-value">{{ formatDate(leave.EndDate) }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="info-icon">⏱️</i>
+            <span class="info-label">Payroll Days</span>
+            <span class="info-value">{{ leave.PayrollDays }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="info-icon">⏰</i>
+            <span class="info-label">Payroll Hours</span>
+            <span class="info-value">{{ leave.PayrollHrs }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="info-icon">📊</i>
+            <span class="info-label">Quota Assigned</span>
+            <span class="info-value">{{ leave.QuotaAssigned }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="info-icon">✅</i>
+            <span class="info-label">Quota Used</span>
+            <span class="info-value">{{ leave.QuotaUsed }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="info-icon">💰</i>
+            <span class="info-label">Available Balance</span>
+            <span class="info-value">{{ getAvailableBalance(leave.QuotaAssigned, leave.QuotaUsed) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-data-message" *ngIf="!isLoading && filteredLeaveDetails.length === 0">
+      <div class="empty-state">
+        <i class="empty-icon">📭</i>
+        <h3>No Leave Records Found</h3>
+        <p>No leave data available for the selected filters.</p>
+      </div>
+    </div>
+
+    <div class="loading-spinner" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading leave details...</p>
+    </div>
+  </div>
+</div>

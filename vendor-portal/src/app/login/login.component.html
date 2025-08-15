@@ -1,0 +1,83 @@
+<div class="login-wrapper">
+  <div class="right-content">
+    <div class="branding">
+      <h1>VendorVista</h1>
+      <h3>A Complete View of Your Vendor World</h3>
+    </div>
+
+    <div class="login-card">
+      <form (ngSubmit)="onLogin()">
+        <label for="vendorId">Vendor ID</label>
+        <input
+          type="text"
+          id="vendorId"
+          [(ngModel)]="vendorId"
+          name="vendorId"
+          placeholder="Enter Vendor ID"
+          required
+        />
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter Password"
+          required
+        />
+
+        <div *ngIf="loginError" class="error">{{ loginError }}</div>
+        <button type="submit" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Login</span>
+          <span *ngIf="isLoading">Logging in...</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="left-image">
+    <img src="assets/login-image.png" alt="Vendor illustration" />
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="login-wrapper">
+  <!!-- Right-aligned card with title above -->
+  <!--div class="right-content">
+    <div class="branding">
+      <h1>VendorVista</h1>
+      <h3>A Complete View of Your Vendor World</h3>
+    </div>
+
+    <div class="login-card">
+      <form>
+        <label for="vendorId">Vendor ID</label>
+        <input type="text" id="vendorId" placeholder="Enter Vendor ID" />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter Password" />
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  <!!-- </div> -->
+
+  <!-- Image on the left -->
+  <!--div class="left-image">
+    <img src="assets/login-image.png" alt="Vendor illustration" />
+  </div>
+</div> -->

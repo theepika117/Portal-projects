@@ -1,0 +1,190 @@
+<div class="memo-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Fetching Credit Debit Memo data from SAP...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <div class="error-message">
+      <span class="error-icon">⚠️</span>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="refreshMemos()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Credit Debit Memo Content -->
+  <div *ngIf="!isLoading && !errorMessage" class="memo-content">
+    <!-- Header Section -->
+    <div class="memo-header">
+      <div class="memo-title">
+        <h1>Credit Debit Memo</h1>
+        <button class="refresh-btn" (click)="refreshMemos()">
+          <span class="refresh-icon">🔄</span>
+          Refresh
+        </button>
+      </div>
+      <div class="memo-description">
+        <p>View all credit and debit memos related to your transactions. Stay informed about adjustments that impact your payable amounts, including returns, corrections, or financial reconciliations. Monitor all credit and debit memo transactions impacting your account. Debit memos represent adjustments that decrease the company's payable obligations, while credit memos reflect reductions in receivables. Ensure accuracy and transparency in vendor financials.</p>
+      </div>
+    </div>
+
+    <!-- Credit Debit Memo Table -->
+    <div class="memo-table-container">
+      <table class="memo-table">
+        <thead>
+          <tr>
+            <th>
+              <span class="header-icon">📄</span>
+              Document Number
+            </th>
+            <th>
+              <span class="header-icon">🏷️</span>
+              Type
+            </th>
+            <th>
+              <span class="header-icon">💰</span>
+              Amount ({{ creditDebitMemoData[0]?.DOC_CURRENCY }})
+            </th>
+            <th>
+              <span class="header-icon">📅</span>
+              Posting Date
+            </th>
+            <th>
+              <span class="header-icon">👁️</span>
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let memo of creditDebitMemoData" class="memo-row">
+            <td class="doc-number">{{ memo.DOC_NUM }}</td>
+            <td class="type" [ngClass]="getTypeClass(memo.TYPE)">
+              <span class="type-badge" [ngClass]="getTypeClass(memo.TYPE)">
+                {{ getTypeDisplay(memo.TYPE) }}
+              </span>
+            </td>
+            <td class="amount">{{ memo.AMOUNT }}</td>
+            <td class="posting-date">{{ memo.POSTING_DATE }}</td>
+            <td>
+              <button class="view-btn" (click)="viewMemo(memo)">
+                <span class="view-icon">👁️</span>
+                View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="creditDebitMemoData.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>No Credit Debit Memos Available</h3>
+      <p>There are currently no Credit Debit Memo records available.</p>
+    </div>
+  </div>
+
+  <!-- Popup Modal -->
+  <div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-modal" (click)="$event.stopPropagation()">
+      <div class="popup-header">
+        <h2>
+          <span class="popup-icon">📋</span>
+          {{ getTypeDisplay(selectedMemo?.TYPE || '') }} Memo - {{ selectedMemo?.DOC_NUM }}
+        </h2>
+        <button class="close-btn" (click)="closePopup()">
+          <span>✕</span>
+        </button>
+      </div>
+      
+      <div class="popup-content" *ngIf="selectedMemo">
+        <div class="detail-sections">
+          <!-- Document Information -->
+          <div class="detail-section">
+            <h3>Document Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Company Code</label>
+                <span>{{ selectedMemo.COMPANY_CODE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Number</label>
+                <span>{{ selectedMemo.DOC_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Fiscal Year</label>
+                <span>{{ selectedMemo.FISCAL_YEAR }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Line Item Number</label>
+                <span>{{ selectedMemo.LINE_ITEM_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Date</label>
+                <span>{{ selectedMemo.DOC_DATE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Posting Date</label>
+                <span>{{ selectedMemo.POSTING_DATE }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transaction Information -->
+          <div class="detail-section">
+            <h3>Transaction Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Type</label>
+                <span class="type-display" [ngClass]="getTypeClass(selectedMemo.TYPE)">
+                  {{ getTypeDisplay(selectedMemo.TYPE) }}
+                </span>
+              </div>
+              <div class="detail-item">
+                <label>Amount</label>
+                <span>{{ selectedMemo.AMOUNT }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Currency</label>
+                <span>{{ selectedMemo.DOC_CURRENCY }}</span>
+              </div>
+              <div class="detail-item">
+                <label>General Ledger Account</label>
+                <span>{{ selectedMemo.GENDRAL_LEDGER }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Posting Key</label>
+                <span>{{ selectedMemo.POSTING_KEY }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Creator Name</label>
+                <span>{{ selectedMemo.CREATOR_NAME }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vendor & Clearing Information -->
+          <div class="detail-section">
+            <h3>Vendor & Clearing Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Vendor Number</label>
+                <span>{{ selectedMemo.VENDOR_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Clearing Document Number</label>
+                <span>{{ selectedMemo.CLEARING_DOC_NUM || 'N/A' }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Special G/L Indicator</label>
+                <span>{{ selectedMemo.SPECIAL_INDICATOR || 'N/A' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

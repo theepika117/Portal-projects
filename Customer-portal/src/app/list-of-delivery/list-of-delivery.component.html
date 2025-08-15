@@ -1,0 +1,68 @@
+<!-- src/app/list-of-delivery/list-of-delivery.component.html -->
+<div class="delivery-container">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button (click)="goBack()" aria-label="Back to Dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>List of Delivery</span>
+    <span class="spacer"></span>
+    <mat-icon>search</mat-icon>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="page-title">Your Delivery Documents</h1>
+    <p class="page-subtitle">
+      The central object in the Shipping component, containing complete business transactions.
+    </p>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Fetching your delivery data...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="warn" (click)="goBack()">Go Back</button>
+    </div>
+
+    <!-- Delivery List -->
+    <div *ngIf="!isLoading && !errorMessage && deliveries.length > 0" class="delivery-list">
+      <mat-card *ngFor="let delivery of deliveries" class="delivery-card">
+        <div class="card-content-summary">
+          <div class="summary-item">
+            <mat-icon>local_shipping</mat-icon>
+            <span class="label">Document No:</span>
+            <span class="value">{{ delivery.DocNum }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>event</mat-icon>
+            <span class="label">Delivery Date:</span>
+            <span class="value">{{ delivery.DeliveryDate }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>place</mat-icon>
+            <span class="label">Receiving Point:</span>
+            <span class="value">{{ delivery.ReceivingPoint }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span class="label">Goods Issue Date:</span>
+            <span class="value">{{ delivery.GoodsIssueDate }}</span>
+          </div>
+        </div>
+        <button mat-raised-button color="accent" (click)="viewDeliveryDetails(delivery)" class="view-button">
+          <mat-icon>visibility</mat-icon> View Details
+        </button>
+      </mat-card>
+    </div>
+
+    <!-- No Data Message -->
+    <div *ngIf="!isLoading && !errorMessage && deliveries.length === 0" class="no-data-message">
+      <mat-icon class="no-data-icon">sentiment_dissatisfied</mat-icon>
+      <p>No delivery data found for your account.</p>
+      <p>Please contact support if you believe this is an error.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,288 @@
+// Color palette
+$pinky: #fbe3e8;
+$blue-greeny: #5cbdb9;
+$chrysanthemum-pink: #ff7bac;
+$blue: #838ee8;
+$grassy-green: #9bc400;
+$ripe-mango: #fec02d;
+$bright-blue: #3796e9;
+
+// Background setup
+.home-container {
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, $blue-greeny 0%, $bright-blue 100%);
+  z-index: -2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/background-image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    z-index: -1;
+  }
+}
+
+// Content container
+.home-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Greeting section
+.greeting-section {
+  text-align: center;
+  margin: 2rem 0 3rem;
+  color: white;
+  
+  .greeting-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.3;
+  }
+  
+  .welcome-message {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+}
+
+// Cards container
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+// Card styles
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    
+    .card-icon {
+      transform: scale(1.1);
+    }
+    
+    .card-button {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transition: height 0.3s ease;
+  }
+  
+  &:hover::before {
+    height: 100%;
+    opacity: 0.1;
+  }
+}
+
+// Card specific colors
+.profile-card {
+  &::before {
+    background: $chrysanthemum-pink;
+  }
+  
+  .card-icon {
+    background: linear-gradient(135deg, $chrysanthemum-pink, $pinky);
+  }
+}
+
+.leave-card {
+  &::before {
+    background: $grassy-green;
+  }
+  
+  .card-icon {
+    background: linear-gradient(135deg, $grassy-green, $ripe-mango);
+  }
+}
+
+.payslip-card {
+  &::before {
+    background: $bright-blue;
+  }
+  
+  .card-icon {
+    background: linear-gradient(135deg, $bright-blue, $blue);
+  }
+}
+
+// Card content
+.card-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  .icon {
+    font-size: 2rem;
+    color: white;
+  }
+}
+
+.card-content {
+  text-align: center;
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .card-description {
+    font-size: 0.9rem;
+    color: #888;
+    display: block;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+}
+
+.card-button {
+  background: linear-gradient(135deg, $blue-greeny, $bright-blue);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background: linear-gradient(135deg, $bright-blue, $blue-greeny);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .home-content {
+    padding: 1rem;
+  }
+  
+  .greeting-section {
+    margin: 1rem 0 2rem;
+    
+    .greeting-text {
+      font-size: 2rem;
+    }
+    
+    .welcome-message {
+      font-size: 1rem;
+    }
+  }
+  
+  .cards-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-content {
+    padding: 0.5rem;
+  }
+  
+  .greeting-section {
+    .greeting-text {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .card {
+    padding: 1.5rem;
+    
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      
+      .icon {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+// Scroll behavior
+.home-container {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+  }
+}

@@ -1,0 +1,69 @@
+<!-- src/app/sales-order-data/sales-order-data.component.html -->
+<div class="sales-order-container">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button (click)="goBack()" aria-label="Back to Dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Sales Order Data</span>
+    <span class="spacer"></span>
+    <mat-icon>search</mat-icon>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <h1 class="page-title">Your Sales Orders</h1>
+    <p class="page-subtitle">
+      Requests to deliver a defined quantity of products or provide a service at a certain time.
+    </p>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Fetching your sales order data...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="warn" (click)="goBack()">Go Back</button>
+    </div>
+
+    <!-- Sales Order List -->
+    <div *ngIf="!isLoading && !errorMessage && salesOrders.length > 0" class="sales-order-list">
+      <mat-card *ngFor="let order of salesOrders" class="sales-order-card">
+        <div class="card-content-summary">
+          <div class="summary-item">
+            <mat-icon>receipt</mat-icon>
+            <span class="label">Sales Doc No:</span>
+            <span class="value">{{ order.DOC_NUM }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span class="label">Delivery Date:</span>
+            <span class="value">{{ order.DELIVERY_DATE }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>category</mat-icon>
+            <span class="label">Sales Item:</span>
+            <span class="value">{{ order.SALES_ORDER_ITEM }}</span>
+          </div>
+          <div class="summary-item">
+            <mat-icon>event_available</mat-icon>
+            <span class="label">Issue Date:</span>
+            <span class="value">{{ order.ISSUE_DATE }}</span>
+          </div>
+        </div>
+        <button mat-raised-button color="accent" (click)="viewSalesOrderDetails(order)" class="view-button">
+          <mat-icon>visibility</mat-icon> View Details
+        </button>
+      </mat-card>
+    </div>
+
+    <!-- No Data Message -->
+    <div *ngIf="!isLoading && !errorMessage && salesOrders.length === 0" class="no-data-message">
+      <mat-icon class="no-data-icon">sentiment_dissatisfied</mat-icon>
+      <p>No sales order data found for your account.</p>
+      <p>Please contact support if you believe this is an error.</p>
+    </div>
+  </div>
+</div>
+

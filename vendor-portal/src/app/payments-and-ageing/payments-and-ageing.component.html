@@ -1,0 +1,144 @@
+<div class="payments-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Fetching Payments and Ageing data from SAP...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <div class="error-message">
+      <span class="error-icon">⚠️</span>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="refreshPayments()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Payments and Ageing Content -->
+  <div *ngIf="!isLoading && !errorMessage" class="payments-content">
+    <!-- Header Section -->
+    <div class="payments-header">
+      <div class="payments-title">
+        <h1>Payments and Ageing</h1>
+        <button class="refresh-btn" (click)="refreshPayments()">
+          <span class="refresh-icon">🔄</span>
+          Refresh
+        </button>
+      </div>
+      <div class="payments-description">
+        <p>Track all vendor payments along with outstanding balances across defined time periods. Understand payment timelines, identify overdue invoices, and monitor aging reports to manage vendor settlements more effectively.</p>
+      </div>
+    </div>
+
+    <!-- Payments Table -->
+    <div class="payments-table-container">
+      <table class="payments-table">
+        <thead>
+          <tr>
+            <th>
+              <span class="header-icon">📄</span>
+              Document Number
+            </th>
+            <th>
+              <span class="header-icon">💰</span>
+              Amount
+            </th>
+            <th>
+              <span class="header-icon">⏰</span>
+              Aging (Days)
+            </th>
+            <th>
+              <span class="header-icon">👁️</span>
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of paymentAgeingData" class="payments-row">
+            <td class="doc-number">{{ payment.DOC_NUM }}</td>
+            <td class="amount">{{ payment.AMOUNT }}</td>
+            <td class="aging" [ngClass]="getAgeingStatus(payment.AGING)">
+              {{ payment.AGING }} days
+            </td>
+            <td>
+              <button class="view-btn" (click)="viewPayment(payment)">
+                <span class="view-icon">👁️</span>
+                View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="paymentAgeingData.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>No Payment Records Available</h3>
+      <p>There are currently no Payment and Ageing records available.</p>
+    </div>
+  </div>
+
+  <!-- Popup Modal -->
+  <div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-modal" (click)="$event.stopPropagation()">
+      <div class="popup-header">
+        <h2>
+          <span class="popup-icon">💳</span>
+          Payment Details - {{ selectedPayment?.DOC_NUM }}
+        </h2>
+        <button class="close-btn" (click)="closePopup()">
+          <span>✕</span>
+        </button>
+      </div>
+      
+      <div class="popup-content" *ngIf="selectedPayment">
+        <div class="detail-sections">
+          <!-- Document Information -->
+          <div class="detail-section">
+            <h3>Document Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Document Number</label>
+                <span>{{ selectedPayment.DOC_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Date</label>
+                <span>{{ selectedPayment.DOC_DATE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Due Date (DATS)</label>
+                <span>{{ selectedPayment.DATS }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Financial Information -->
+          <div class="detail-section">
+            <h3>Financial Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Amount</label>
+                <span>{{ selectedPayment.AMOUNT }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Aging (Days)</label>
+                <span class="aging-value" [ngClass]="getAgeingStatus(selectedPayment.AGING)">
+                  {{ selectedPayment.AGING }} days
+                </span>
+              </div>
+              <div class="detail-item">
+                <label>Status</label>
+                <span class="status-badge" [ngClass]="getAgeingStatus(selectedPayment.AGING)">
+                  <span *ngIf="getAgeingStatus(selectedPayment.AGING) === 'current'">✅ Current</span>
+                  <span *ngIf="getAgeingStatus(selectedPayment.AGING) === 'overdue'">⚠️ Overdue</span>
+                  <span *ngIf="getAgeingStatus(selectedPayment.AGING) === 'critical'">🚨 Critical</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

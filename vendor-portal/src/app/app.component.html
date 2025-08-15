@@ -1,0 +1,9 @@
+<!-- Splash screen -->
+<div *ngIf="showSplash" class="splash-screen">
+  <img src="assets/logovista.png" alt="VendorVista Logo" class="logo-transition">
+</div>
+
+<!-- Login or other routed pages -->
+<div *ngIf="!showSplash" class="login-page">
+  <router-outlet></router-outlet>
+</div>

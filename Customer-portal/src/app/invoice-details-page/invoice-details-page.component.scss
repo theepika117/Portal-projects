@@ -1,0 +1,194 @@
+/* src/app/invoice-details-page/invoice-details-page.component.scss */
+@use "sass:color";
+
+.invoice-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #e0f2f7; /* Consistent light blue background */
+  font-family: 'Roboto', sans-serif;
+}
+
+.app-toolbar {
+  background-color: #00796b; /* Darker teal/green for toolbar */
+  color: white;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.page-title {
+  color: #00796b;
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.page-subtitle {
+  color: #333;
+  font-size: 1.2em;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.loading-spinner, .error-message, .no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 50px;
+  p {
+    color: #555;
+    font-size: 1.1em;
+  }
+}
+
+.error-message {
+  color: #d32f2f;
+  button {
+    background-color: #d32f2f;
+    color: white;
+  }
+}
+
+.no-data-message {
+  .no-data-icon {
+    font-size: 4em;
+    color: #9e9e9e;
+  }
+  p {
+    color: #777;
+  }
+}
+
+.invoice-list {
+  display: flex;
+  flex-direction: column; /* Stack cards vertically */
+  gap: 20px; /* Space between cards */
+  width: 100%;
+  max-width: 800px; /* Max width for the list of cards */
+}
+
+.invoice-card {
+  display: flex;
+  justify-content: space-between; /* Space out content and buttons */
+  align-items: center;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Lighter shadow for list items */
+  background-color: white;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.card-content-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid for summary items */
+  gap: 10px 20px;
+  flex-grow: 1; /* Allow content to take available space */
+  text-align: left; /* Align text within summary items */
+  margin-right: 20px; /* Space before the buttons */
+
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon, label, and value */
+    flex-wrap: wrap; /* Allow items to wrap if space is tight */
+
+    mat-icon {
+      font-size: 1.2em;
+      color: #3f51b5; /* Icon color */
+    }
+
+    .label {
+      font-weight: 600;
+      color: #555;
+      white-space: nowrap; /* Prevent label from wrapping */
+    }
+
+    .value {
+      color: #333;
+      font-weight: 500;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.view-button, .download-button {
+  padding: 8px 15px;
+  font-size: 0.9em;
+  mat-icon {
+    font-size: 1.1em;
+    margin-right: 5px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .invoice-card {
+    flex-direction: column; /* Stack content and buttons vertically */
+    align-items: flex-start; /* Align stacked content to start */
+    padding: 15px;
+  }
+  .card-content-summary {
+    margin-right: 0;
+    margin-bottom: 15px; /* Space between summary and buttons */
+    width: 100%; /* Take full width when stacked */
+  }
+  .card-actions {
+    width: 100%; /* Make buttons full width when stacked */
+    justify-content: space-around; /* Distribute buttons evenly */
+  }
+  .view-button, .download-button {
+    flex: 1; /* Allow buttons to grow and fill space */
+  }
+  .page-title {
+    font-size: 2em;
+  }
+  .page-subtitle {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-toolbar {
+    padding: 0 10px;
+  }
+  .page-title {
+    font-size: 1.8em;
+  }
+  .invoice-card {
+    padding: 10px;
+  }
+  .card-content-summary .summary-item {
+    flex-direction: column; /* Stack label and value within item */
+    align-items: flex-start;
+    .label {
+      margin-bottom: 2px;
+    }
+  }
+}

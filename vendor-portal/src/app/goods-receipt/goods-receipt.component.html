@@ -1,0 +1,196 @@
+<div class="gr-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Fetching Goods Receipt data from SAP...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <div class="error-message">
+      <span class="error-icon">⚠️</span>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="refreshGR()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Goods Receipt Content -->
+  <div *ngIf="!isLoading && !errorMessage" class="gr-content">
+    <!-- Header Section -->
+    <div class="gr-header">
+      <div class="gr-title">
+        <h1>Goods Receipt</h1>
+        <button class="refresh-btn" (click)="refreshGR()">
+          <span class="refresh-icon">🔄</span>
+          Refresh
+        </button>
+      </div>
+      <div class="gr-description">
+        <p>Track the physical movement of goods into the warehouse with complete visibility. Stay updated on received items, stock increases, and manage your deliveries with ease.</p>
+      </div>
+    </div>
+
+    <!-- Goods Receipt Table -->
+    <div class="gr-table-container">
+      <table class="gr-table">
+        <thead>
+          <tr>
+            <th>
+              <span class="header-icon">📄</span>
+              Material Doc Num
+            </th>
+            <th>
+              <span class="header-icon">📅</span>
+              Doc Date
+            </th>
+            <th>
+              <span class="header-icon">🔄</span>
+              Movement Type
+            </th>
+            <th>
+              <span class="header-icon">🏭</span>
+              Plant
+            </th>
+            <th>
+              <span class="header-icon">🏢</span>
+              Supplier Number
+            </th>
+            <th>
+              <span class="header-icon">⚡</span>
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let gr of grList" class="gr-row">
+            <td class="doc-number">{{ gr.MATERIAL_DOC_NUM }}</td>
+            <td>{{ gr.DOC_DATE }}</td>
+            <td class="movement-type">{{ gr.MOVEMENT_TYPE }}</td>
+            <td>{{ gr.PLANT }}</td>
+            <td class="supplier-num">{{ gr.SUPLIER_NUM }}</td>
+            <td>
+              <button class="view-btn" (click)="viewGR(gr)">
+                <span class="view-icon">👁️</span>
+                View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="grList.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>No Goods Receipts Available</h3>
+      <p>There are currently no Goods Receipts available.</p>
+    </div>
+  </div>
+
+  <!-- Popup Modal -->
+  <div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-modal" (click)="$event.stopPropagation()">
+      <div class="popup-header">
+        <h2>
+          <span class="popup-icon">📦</span>
+          Goods Receipt Details
+        </h2>
+        <button class="close-btn" (click)="closePopup()">
+          <span>✕</span>
+        </button>
+      </div>
+      
+      <div class="popup-content" *ngIf="selectedGR">
+        <div class="detail-sections">
+          <!-- Document Information -->
+          <div class="detail-section">
+            <h3>Document Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Material Document Number</label>
+                <span>{{ selectedGR.MATERIAL_DOC_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Material Document Year</label>
+                <span>{{ selectedGR.MATERIAL_DOC_YEAR }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Date</label>
+                <span>{{ selectedGR.DOC_DATE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Posting Date</label>
+                <span>{{ selectedGR.POSTING_DATE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Document Type</label>
+                <span>{{ selectedGR.DOC_TYPE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>User Name</label>
+                <span>{{ selectedGR.USER_NAME }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item Information -->
+          <div class="detail-section">
+            <h3>Item Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Item in Material Document</label>
+                <span>{{ selectedGR.ITEM_NUM_M }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Material Number</label>
+                <span>{{ selectedGR.MATERIAL_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Unit of Measure</label>
+                <span>{{ selectedGR.UNIT_OF_MEASURE }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Movement Type</label>
+                <span>{{ selectedGR.MOVEMENT_TYPE }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Purchase Order Information -->
+          <div class="detail-section">
+            <h3>Purchase Order Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Purchase Order Number</label>
+                <span>{{ selectedGR.PURCHASE_ORDER_NUM }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Item Number of Purchasing Document</label>
+                <span>{{ selectedGR.ITEM_NUM_P }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location & Supplier Information -->
+          <div class="detail-section">
+            <h3>Location & Supplier Information</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Plant</label>
+                <span>{{ selectedGR.PLANT }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Storage Location</label>
+                <span>{{ selectedGR.STORAGE_LOC }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Supplier's Account Number</label>
+                <span>{{ selectedGR.SUPLIER_NUM }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

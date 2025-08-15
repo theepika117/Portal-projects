@@ -1,0 +1,50 @@
+<div class="home-container">
+  <div class="background-overlay"></div>
+  <div class="home-content">
+    <div class="greeting-section">
+      <h1 class="greeting-text">{{ greeting }}</h1>
+      <p class="welcome-message">Welcome to your personalized workspace</p>
+    </div>
+
+    <div class="cards-container">
+      <!-- Profile Card -->
+      <div class="card profile-card">
+        <div class="card-icon">
+          <i class="icon">👤</i>
+        </div>
+        <div class="card-content">
+          <h3>Your Profile</h3>
+          <p>Keep your details updated for a smooth HR experience.</p>
+          <span class="card-description">Keep your personal and professional details up to date. A complete profile helps us serve you better.</span>
+<button class="card-button" routerLink="/profile">View Profile</button>
+        </div>
+      </div>
+
+      <!-- Leave Request Card -->
+      <div class="card leave-card">
+        <div class="card-icon">
+          <i class="icon">📅</i>
+        </div>
+        <div class="card-content">
+          <h3>Leave Requests</h3>
+          <p>Apply, track, and manage your time off with ease.</p>
+          <span class="card-description">Plan your time off with ease. Submit, track, and manage your leave in just a few clicks.</span>
+          <button class="card-button" routerLink="/leave">Apply Leave</button>
+        </div>
+      </div>
+
+      <!-- Payslip Card -->
+      <div class="card payslip-card">
+        <div class="card-icon">
+          <i class="icon">💰</i>
+        </div>
+        <div class="card-content">
+          <h3>Payslip</h3>
+          <p>View and download your payslips anytime, anywhere.</p>
+          <span class="card-description">Access your monthly payslips securely, anytime, anywhere. Your earnings, clearly detailed.</span>
+          <button class="card-button" routerLink="/payslip">View Payslip</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

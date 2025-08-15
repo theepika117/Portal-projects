@@ -1,0 +1,65 @@
+<div class="payslip-container">
+  <div class="background-overlay"></div>
+  
+  <div class="payslip-content">
+    <div class="page-header">
+      <button class="back-button" (click)="goBack()">
+        <i class="back-icon">←</i>
+        <span>Back to Home</span>
+      </button>
+      <h1 class="page-title">Your Payslip</h1>
+      <p class="page-subtitle">View and download your monthly payslip</p>
+    </div>
+
+    <!-- Month/Year Selection - Only shown when not selected -->
+    <div class="month-year-selection" *ngIf="!selectedMonth || !selectedYear">
+      <h3>Select Month and Year</h3>
+      <div class="selection-controls">
+        <div class="form-group">
+          <label for="month">Month:</label>
+          <select id="month" [(ngModel)]="selectedMonth" (change)="saveMonthYear()" class="form-control">
+            <option *ngFor="let month of getMonths()" [value]="month.value">{{ month.name }}</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="year">Year:</label>
+          <select id="year" [(ngModel)]="selectedYear" (change)="saveMonthYear()" class="form-control">
+            <option *ngFor="let year of getYears()" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+        
+        <div class="selected-info">
+          <h2 class="header-title">Payslip Details - {{ getMonthName(selectedMonth) }}/{{ selectedYear }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payslip Details - Only shown after month/year selection -->
+    <div class="payslip-details" *ngIf="!isLoading && selectedMonth && selectedYear">
+      <div class="payslip-card">
+        <div class="payslip-header">
+          <h2 class="header-title">Payslip Details - {{ selectedMonth }}/{{ selectedYear }}</h2>
+        </div>
+        <div class="payslip-info">
+          <div *ngFor="let item of payslipData" class="info-row">
+            <div class="info-icon">{{ getIconForField(item.key) }}</div>
+            <div class="info-label">{{ item.key }}</div>
+            <div class="info-value">{{ item.value }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading - Only shown after month/year selection -->
+    <div class="loading-spinner" *ngIf="isLoading && selectedMonth && selectedYear">
+      <div class="spinner"></div>
+      <p>Loading payslip details for {{ selectedMonth }}/{{ selectedYear }}...</p>
+    </div>
+
+    <!-- Download button - Only shown after month/year selection -->
+    <div class="actions" *ngIf="selectedMonth && selectedYear">
+      <button class="download-btn" (click)="saveMonthYear(); downloadPayslip()">Download Payslip</button>
+    </div>
+  </div>
+</div>

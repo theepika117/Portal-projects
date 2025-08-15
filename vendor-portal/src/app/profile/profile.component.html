@@ -1,0 +1,103 @@
+<div class="profile-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Fetching profile data from SAP...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <div class="error-message">
+      <span class="error-icon">⚠️</span>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="refreshProfile()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <div *ngIf="!isLoading && !errorMessage && vendorProfile" class="profile-content">
+    <!-- Header Section -->
+    <div class="profile-header">
+      <div class="profile-title">
+        <h1>Vendor Profile</h1>
+        <button class="refresh-btn" (click)="refreshProfile()">
+          <span class="refresh-icon">🔄</span>
+          Refresh
+        </button>
+      </div>
+      <div class="profile-summary">
+        <div class="vendor-avatar">
+          <span class="avatar-icon">🏢</span>
+        </div>
+        <div class="vendor-details">
+          <h2>{{ vendorProfile.NAME }}</h2>
+          <p class="vendor-number">Vendor ID: {{ vendorProfile.VENDOR_ID }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Information -->
+    <div class="profile-section">
+      <h3 class="section-title">
+        <span class="section-icon">📋</span>
+        Vendor Information
+      </h3>
+      <div class="section-content">
+        <div class="field-group">
+          <div class="field">
+            <label>Vendor ID</label>
+            <span>{{ vendorProfile.VENDOR_ID }}</span>
+          </div>
+          <div class="field">
+            <label>Name</label>
+            <span>{{ vendorProfile.NAME }}</span>
+          </div>
+        </div>
+        
+        <div class="field-group">
+          <div class="field">
+            <label>Address</label>
+            <span>{{ vendorProfile.ADDRESS }}</span>
+          </div>
+          <div class="field">
+            <label>Street</label>
+            <span>{{ vendorProfile.STREET }}</span>
+          </div>
+        </div>
+        
+        <div class="field-group">
+          <div class="field">
+            <label>City</label>
+            <span>{{ vendorProfile.CITY }}</span>
+          </div>
+          <div class="field">
+            <label>Postal Code</label>
+            <span>{{ vendorProfile.POSTAL_CODE }}</span>
+          </div>
+        </div>
+        
+        <div class="field-group">
+          <div class="field">
+            <label>Company Code</label>
+            <span>{{ vendorProfile.COMPANY_CODE }}</span>
+          </div>
+          <div class="field">
+            <label>Reconciliation Account</label>
+            <span>{{ vendorProfile.RECONCILIATION_ACCOUNT }}</span>
+          </div>
+        </div>
+        
+        <div class="field-group">
+          <div class="field">
+            <label>Purchasing Organization</label>
+            <span>{{ vendorProfile.PURCHASING_ORG }}</span>
+          </div>
+          <div class="field">
+            <label>Purchase Order Currency</label>
+            <span>{{ vendorProfile.PURCHASE_ORDER_CURRENCY }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

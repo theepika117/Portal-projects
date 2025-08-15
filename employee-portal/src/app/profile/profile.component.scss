@@ -1,0 +1,342 @@
+// Color palette
+$pinky: #fbe3e8;
+$blue-greeny: #5cbdb9;
+$chrysanthemum-pink: #ff7bac;
+$blue: #838ee8;
+$grassy-green: #9bc400;
+$ripe-mango: #fec02d;
+$bright-blue: #3796e9;
+
+// Background setup
+.profile-container {
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, $blue-greeny 0%, $bright-blue 100%);
+  z-index: -2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/background-image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    z-index: -1;
+  }
+}
+
+// Content container
+.profile-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// Header
+.profile-header {
+  text-align: center;
+  margin: 2rem 0 3rem;
+  color: white;
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .back-icon {
+      margin-right: 0.5rem;
+    }
+  }
+  .profile-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+}
+
+// Profile card
+.profile-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Avatar
+.profile-avatar {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, $chrysanthemum-pink, $pinky);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    .avatar-icon {
+      font-size: 3rem;
+      color: white;
+    }
+  }
+}
+
+// Detail sections
+.detail-section {
+  margin-bottom: 2.5rem;
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(135deg, $blue-greeny, $bright-blue);
+      border-radius: 2px;
+    }
+  }
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(248, 249, 250, 0.8);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(248, 249, 250, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: $bright-blue;
+  }
+  
+  .detail-label {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.9rem;
+    display: block;
+  }
+  
+  .detail-value {
+    font-weight: 500;
+    color: #333;
+    font-size: 1rem;
+  }
+}
+
+// Action buttons
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    .button-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.edit-button {
+  background: linear-gradient(135deg, $chrysanthemum-pink, $pinky);
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, $pinky, $chrysanthemum-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.download-button {
+  background: linear-gradient(135deg, $grassy-green, $ripe-mango);
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, $ripe-mango, $grassy-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Loading state
+.loading-state {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+}
+
+// Error state
+.error-state {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  
+  .error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .retry-button {
+    background: linear-gradient(135deg, $chrysanthemum-pink, $pinky);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    
+    &:hover {
+      background: linear-gradient(135deg, $pinky, $chrysanthemum-pink);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .profile-content {
+    padding: 1rem;
+  }
+  
+  .profile-header {
+    .profile-title {
+      font-size: 2rem;
+    }
+    
+    .profile-subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  .profile-card {
+    padding: 1.5rem;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-content {
+    padding: 0.5rem;
+  }
+  
+  .profile-header {
+    .profile-title {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    text-align: center;
+    
+    .detail-icon {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
