@@ -1,0 +1,23 @@
+<mvc:View
+  controllerName="SHOP_FLOOR.controller.Dashboard"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+
+<Page title="DASHBOARD">
+<content>
+<TileContainer id="tileContainer">
+<StandardTile
+          icon="sap-icon://business-objects-experience"
+          title="PLANNING ORDERS"
+          press="onPlanningOrderTilePress"
+          info="View planning order data" />
+ 
+        <StandardTile
+          icon="sap-icon://factory"
+          title="PRODUCTION ORDERS"
+          press="onProductionOrderTilePress"
+          info="View production order" />
+</TileContainer>
+</content>
+</Page>
+</mvc:View>

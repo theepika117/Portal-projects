@@ -1,0 +1,9 @@
+<mvc:View
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  controllerName="SHOP_FLOOR.controller.App">
+ 
+  <App id="app" >
+</App>
+
+</mvc:View>

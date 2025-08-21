@@ -1,0 +1,97 @@
+<mvc:View
+  controllerName="SHOP_FLOOR.controller.ProductionOrder"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <Page title="Production Orders" class="sapUiContentPadding">
+    <content>
+      <VBox>
+        <!-- Header Toolbar -->
+        <Toolbar>
+          <Title text="Production Orders" level="H2"/>
+          <ToolbarSpacer/>
+
+          <!-- Month Filter -->
+          <Label text="Month" class="sapUiSmallMarginEnd"/>
+          <Select id="monthSelect" change=".onFilterChange">
+            <items>
+              <core:Item key="" text="All"/>
+              <core:Item key="01" text="January"/>
+              <core:Item key="02" text="February"/>
+              <core:Item key="03" text="March"/>
+              <core:Item key="04" text="April"/>
+              <core:Item key="05" text="May"/>
+              <core:Item key="06" text="June"/>
+              <core:Item key="07" text="July"/>
+              <core:Item key="08" text="August"/>
+              <core:Item key="09" text="September"/>
+              <core:Item key="10" text="October"/>
+              <core:Item key="11" text="November"/>
+              <core:Item key="12" text="December"/>
+            </items>
+          </Select>
+
+          <!-- Year Filter -->
+          <Label text="Year" class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+          <Select id="yearSelect" change=".onFilterChange">
+            <items>
+              <core:Item key="" text="All"/>
+              <core:Item key="2024" text="2024"/>
+              <core:Item key="2025" text="2025"/>
+              <core:Item key="2026" text="2026"/>
+            </items>
+          </Select>
+
+          <!-- Apply Button -->
+          <Button text="Apply" icon="sap-icon://filter" press=".onApplyFilters"/>
+
+          <!-- Sort Button -->
+          <Button icon="sap-icon://sort" press=".onSort" tooltip="Sort by Start Date"/>
+        </Toolbar>
+
+        <!-- Production Orders Table -->
+        <Table id="productionOrderTable"
+               noDataText="No records found"
+               items="{prodOrders>/}">
+          <columns>
+            <Column><Text text="Order Number"/></Column>
+		    <Column><Text text="Order Type"/></Column>
+		    <Column><Text text="Plant"/></Column>
+		    <Column><Text text="Description"/></Column>
+		    <Column><Text text="Created By"/></Column>
+		    <Column><Text text="Created On"/></Column>
+		    <Column><Text text="Object Number"/></Column>
+		    <Column><Text text="Start Date"/></Column>
+		    <Column><Text text="End Date"/></Column>
+		    <Column><Text text="Quantity"/></Column>
+		    <Column><Text text="Unit"/></Column>
+		    <Column><Text text="Planned Finish"/></Column>
+		    <Column><Text text="Actual Finish"/></Column>
+          </columns>
+
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{prodOrders>Aufnr}"/>
+		        <Text text="{prodOrders>Aurt}"/>
+		        <Text text="{prodOrders>Werks}"/>
+		        <Text text="{prodOrders>Ktext}"/>
+		        <Text text="{prodOrders>Ernam}"/>
+		        <Text text="{path:'prodOrders>Erdat', formatter:'.formatter.formatDate'}"/>
+		        <Text text="{prodOrders>Objnr}"/>
+		        <Text text="{path:'prodOrders>Gstrp', formatter:'.formatter.formatDate'}"/>
+		        <Text text="{path:'prodOrders>Gltrp', formatter:'.formatter.formatDate'}"/>
+		        <Text text="{prodOrders>Gamng}"/>
+		        <Text text="{prodOrders>Gmein}"/>
+		        <Text text="{path:'prodOrders>Ftrmi', formatter:'.formatter.formatDate'}"/>
+		        <Text text="{path:'prodOrders>Ftrmp', formatter:'.formatter.formatDate'}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>

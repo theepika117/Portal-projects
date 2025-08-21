@@ -1,0 +1,37 @@
+<mvc:View
+  controllerName="SHOP_FLOOR.controller.Login"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  displayBlock="true">
+
+  <Page title="SHOP FLOOR PORTAL - Login" class="sapUiContentPadding">
+    <content>
+      <VBox class="sapUiSmallMargin" alignItems="Center" justifyContent="Center">
+        
+        <Title text="Please Log In" level="H2" class="sapUiSmallMarginBottom"/>
+        
+        <Input 
+          id="empId" 
+          placeholder="Enter Employee ID" 
+          width="300px" 
+          class="sapUiTinyMarginBottom"
+          submit="onLogin" />   <!-- Press Enter to login -->
+        
+        <Input 
+          id="password" 
+          placeholder="Enter Password" 
+          type="Password" 
+          width="300px" 
+          class="sapUiTinyMarginBottom"
+          submit="onLogin" />   <!-- Press Enter to login -->
+        
+        <Button 
+          text="Login" 
+          press="onLogin"
+          type="Emphasized"
+          class="sapUiSmallMarginTop" />
+          
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>
